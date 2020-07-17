@@ -1,0 +1,16 @@
+---
+title: "Causal Inference with Text"
+date: "December 3rd, 2020"
+description: ""
+---
+
+*Learning Objective*: Understand how to treat quantities from a text analysis as treatments, as confounders, and as outcomes.
+
+
+## Lecture
+
+[Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+
+## Assignment
+
+[Link](https://rstudio.cloud/)

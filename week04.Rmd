@@ -1,0 +1,15 @@
+---
+title: "Dictionaries II"
+date: "October 1st, 2020"
+description: "Evaluation and Analysis"
+---
+
+*Learning Objective*: How to use the interpret, evaluate, and improve a dictionary-based analysis 
+
+## Lecture
+
+[Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+
+## Assignment
+
+[Link](https://rstudio.cloud/)

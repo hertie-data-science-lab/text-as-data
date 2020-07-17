@@ -1,0 +1,15 @@
+---
+title: "Topic Models II"
+date: "October 15th, 2020"
+description: "Extensions and Limitations"
+---
+
+*Learning Objective*: Appreciate the strengths and limitations of topic modelling; evaluate and criticize fitted models; understand the structural topic model framework
+
+## Lecture
+
+[Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+
+## Assignment
+
+[Link](https://rstudio.cloud/)

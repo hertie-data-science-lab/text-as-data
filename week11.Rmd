@@ -1,0 +1,16 @@
+---
+title: "Classification"
+date: "November 26th, 2020"
+description: ""
+---
+
+*Learning Objective*: Understand the document classification task, evaluate classification models, evaluate, and deal with errors
+
+
+## Lecture
+
+[Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+
+## Assignment
+
+[Link](https://rstudio.cloud/)

@@ -1,0 +1,15 @@
+---
+title: "Dictionaries I"
+date: "September 24th, 2020"
+description: "Construction"
+---
+
+*Learning objective*: Understand the generative process assumed by dictionary-based content analysis and how this motivates the process of dictionary construction and application
+
+## Lecture
+
+[Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+
+## Assignment
+
+[Link](https://rstudio.cloud/)

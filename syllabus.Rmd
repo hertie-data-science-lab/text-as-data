@@ -1,0 +1,101 @@
+---
+title: "Syllabus"
+description: |
+  Your single source of course information
+bibliography: biblio.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Logistics
+
+&nbsp;
+------------------------------ ------------------------------- 
+**Instructor**:                [Dr. William E. M. Lowe](lowe@hertie-school.org)
+**Assistant Email**:           <adjunctsupport@hertie-school.org>
+**Office**:                    Room 3.14
+**Office Hours**               By arrangement. Email the instructor directly.
+**Class Times**                Thursdays 16:00-18:00
+---------------------------------------------------------------
+
+### Format
+
+The course will consist of short pre-recorded lectures from the instructor and live discussion of these conducted either in person, remotely, or a mix of both. There are regular exercises to be submitted the week after they are set. Students will finish the course with an in depth analysis of an existing substantively-focused instructor-approved paper of their choice.
+
+## General Readings
+
+Readings will be provided in the form of articles, preprints, and occasionally online resources as the course progresses. There is regrettably not (yet) a single textbook that adequately treats the topics of this course.
+
+### Prerequisites
+
+Statistically, students should be familiar with fitting and interpreting linear models and with the basics of logistic regression. Previous exposure with any kind of measurement model or (index construction process) will be helpful, e.g. factor analysis, or IRT, but this material will be presented as needed.
+
+Practically, students should be competent, though need not be expert, at manipulating vectors and data.frames in R. Text data is unavoidably unwieldy and much of any text analysis is spent manipulating data, which the course will provide practice for but not teach from scratch. Experience with R graphics will also be an advantage, though is not required. The Data Science Lab’s help desk can suggest materials to fulfil the data manipulation prerequisites. 
+
+## Grading and Assignments
+
+TBA
+
+### Exercises
+
+Data analysis exercises are guided practical exercises based around a data set or text collection, interspersed with conceptual questions about the tools being used, interpretation of results, etc. The exercises are designed to improve practical skills and test knowledge from lectures and reading. Grading is based on success in the practical components and the quality of written answers. Answers to conceptual questions are intended to require at most several paragraphs of text. Note that different exercises have a different mixes of practical and explanatory / analytical requirements.
+
+### Final Report
+
+For the final report, students choose a substantively oriented paper on a policy topic of their choice, subject to instructor approval, and provide both a critique of its methods from a causal perspective, and motivate a set of proposals to remedy any identified defects (if that is possible), e.g. by providing alternative or additional research design or other analytical strategies to address the original research question. Note that there is no requirement that suggestions must use exactly the same data but suggestions for alternative data sources must be reasonable.
+ 
+### Participation 
+ 
+The participation grade is based on the assumption that students take part, not as passive consumers of knowledge, but as active participants in the exchange, production, and critique of ideas—their own ideas and the ideas of others. Therefore, students should come to class not only having read and viewed the materials assigned for that day but also prepared to discuss the readings of the day and to contribute thoughtfully to the conversation. Participation is graded subtractively; students receive the full grade except to the extent they fail to take adequate part in the class.  Participation is marked by its active nature, its consistency, and its quality, but note that it is both unnecessary and also unwise, to monopolize conversation in order to maximize participation grade. Participation that makes it harder for other class members to engage in discussion will lead to a lower grade, regardless of the quality of interventions.
+
+
+Participation is graded *subtractively*; students receive the full grade except to the extent they fail to take adequate part in the class.  Participation is marked by its active nature, its consistency, and its quality, but note that it is both unnecessary and also unwise, to monopolize conversation in order to maximize participation grade. Participation that makes it harder for other class members to engage in discussion will lead to a lower grade, regardless of the quality of interventions.
+
+### Late submission of assignments
+
+For each day the assignment is turned in late, the grade will be reduced by 10% (e.g. submission two days after the deadline would result in 20% grade deduction).
+
+### Attendance
+
+Students are expected to be present and prepared for every class session. Active participation during lectures and seminar discussions is important. If unavoidable circumstances arise which prevent attendance or preparation, the instructor should be advised by email with as much advance notice as possible. Please note that students cannot miss more than two out of 12 course sessions. For further information please consult the Examination Rules §10.
+
+### Academic Integrity
+
+The Hertie School is committed to the standards of good academic and ethical conduct. Any violation of these standards shall be subject to disciplinary action. Plagiarism, deceitful actions as well as free-riding in group work are not tolerated. See Examination Rules §16.
+
+### Compensation for Disadvantages
+
+If a student furnishes evidence that he or she is not able to take an examination as required in whole or in part due to disability or permanent illness, the Examination Committee may upon written request approve learning accommodation(s). In this respect, the submission of adequate certificates may be required. See Examination Rules §14.
+
+### Extenuating circumstances 
+
+An extension can be granted due to extenuating circumstances (i.e., for reasons like illness, personal loss or hardship, or caring duties). In such cases, please contact the course instructors and the Examination Office in advance of the deadline.
+
+## Session Overview 
+
+Session  Date        Title 
+-------- ----------- --------------------------------------------
+**1**    10.09.2020  [Text as Data](week01.html)
+**2**    17.09.2020  [Text as Data as Measurement](week2.html)
+**3**    24.09.2020  [Dictionaries (1. construction)](week03.html)
+                     *Assignment 1 out*
+**4**    01.10.2020  [Dictionaries (2. evaluation and analysis)](week04.html)
+                     *Assignment 2 out*
+**5**    08.10.2020  [Topic Models (1. construction)](week05.html)
+                     *Assignment 3 out*
+**6**    15.10.2020  [Topic Models (2. extensions and limitations)](week06.html)
+                     *Assignment 4 out*
+                     &nbsp;
+**7**    29.10.2020  [Space and Similarity](week07.html)
+**8**    05.11.2020  [Sentiment](week08.html)
+**9**    12.11.2020  [Scaling (1)](week09.html)
+**10**   19.11.2020  [Scaling (2)](week10.html)
+**11**   26.11.2020  [Classification](week11.html)
+                     *Assignment 5 out*
+**12**   03.12.2020  [Causal Inference with Text](week12.html)
+         14.12.2020  *Final Exam Week*
+-------------------------------------------------------------------
+
+

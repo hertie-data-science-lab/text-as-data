@@ -1,0 +1,15 @@
+---
+title: "Text as Data"
+date: "September 10th, 2020"
+description: ""
+---
+
+*Learning Objective*: Understand the approach and tension/complementarity with alternatives such as Discourse Analysis
+
+## Lecture
+
+[Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+
+## Assignment
+
+[Link](https://rstudio.cloud/)

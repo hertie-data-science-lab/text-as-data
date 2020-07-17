@@ -1,0 +1,15 @@
+---
+title: "Text as Data as Measurement"
+date: "September 17th, 2020"
+description: ""
+---
+
+*Learning Objective*: Understand how classification and measurement models from statistics relate to text analysis
+
+## Lecture
+
+[Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+
+## Assignment
+
+[Link](https://rstudio.cloud/)

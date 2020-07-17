@@ -1,0 +1,15 @@
+---
+title: "Scaling II"
+date: "November 19th, 2020"
+description: "Extensions and Interpretation"
+---
+
+*Learning Objective*: Understand extensions of association and correspondence analysis to multiple dimensions and their graphical interpretation 
+
+## Lecture
+
+[Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+
+## Assignment
+
+[Link](https://rstudio.cloud/)

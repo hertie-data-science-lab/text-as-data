@@ -1,0 +1,50 @@
+---
+title: "Causal Inference"
+description: |
+  Contemporary approaches to causal inference and its application to policy questions
+site: distill::distill_website
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Learn more about creating websites with Distill at:
+# https://rstudio.github.io/distill/website.html
+
+```
+
+------------------------------ ------------------------------- 
+**Instructor**:                [Dr. William E. M. Lowe](lowe@hertie-school.org)
+**Office**:                    Room 3.14
+**Office Hours**               By arrangement. [Email](lowe@hertie-school.org) the instructor directly.
+**Class Times**                Thursdays 16:00-18:00
+---------------------------------------------------------------
+
+### Sessions
+
+              Date        Title 
+------------- ----------- --------------------------------------------
+**1**         10.09.2020  [Text as Data](week01.html)
+**2**         17.09.2020  [Text as Data as Measurement](week2.html)
+**3**         24.09.2020  [Dictionaries (1. construction)](week03.html)
+                          *Assignment 1 out*
+**4**         01.10.2020  [. Dictionaries (2. evaluation and analysis)](week04.html)
+                          *Assignment 2 out*
+**5**         08.10.2020  [Topic models (1. construction)](week05.html)
+                          *Assignment 3 out*
+**6**         15.10.2020  [Topic models (2. extensions and limitations)](week06.html)
+                          *Assignment 4 out*
+                          &nbsp;
+**7**         29.10.2020  [Space and Similarity](week07.html)
+**8**         05.11.2020  [Sentiment](week08.html)
+**9**         12.11.2020  [Scaling (1)](week09.html)
+**10**        19.11.2020  [Scaling (2)](week10.html)
+**11**        26.11.2020  [Text Classification](week11.html)
+                          *Assignment 5 out*
+**12**        03.12.2020  [Causal Inference with Text](week12.html)
+              14.12.2020  *Final Exam Week*
+-------------------------------------------------------------------
+
+
+
+
