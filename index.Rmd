@@ -1,7 +1,7 @@
 ---
-title: "Causal Inference"
+title: "Text as Data"
 description: |
-  Contemporary approaches to causal inference and its application to policy questions
+  Quantitative Text Analaysis for Political Science and Public Policy
 site: distill::distill_website
 ---
 
