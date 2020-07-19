@@ -28,7 +28,7 @@ knitr::opts_chunk$set(echo = FALSE)
 **2**         17.09.2020  [Text as Data as Measurement](week2.html)
 **3**         24.09.2020  [Dictionaries (1. construction)](week03.html)
                           *Assignment 1 out*
-**4**         01.10.2020  [. Dictionaries (2. evaluation and analysis)](week04.html)
+**4**         01.10.2020  [Dictionaries (2. evaluation and analysis)](week04.html)
                           *Assignment 2 out*
 **5**         08.10.2020  [Topic models (1. construction)](week05.html)
                           *Assignment 3 out*
