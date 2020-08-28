@@ -4,11 +4,28 @@ date: "September 10th, 2020"
 description: ""
 ---
 
-*Learning Objective*: Understand the approach and tension/complementarity with alternatives such as Discourse Analysis
+This week we contrast 'text as data' with other possible approaches to
+studying text and language. We will see that the distinctive feature
+of a text as a data approach (henceforward TADA) is its emphasis on
+language as behaviour in an institutional setting. TADA de-emphasises -
+indeed mostly just ignores - dictionary definitions and grammatical niceties to
+focus on what language is being used to do, e.g. emphasize an issue or
+express a position. In marked contrast to  other approaches e.g. from
+psychology or discourse analysis, there is more concern for measurement and
+much less concern for 'theory' with the idea that TADA is for connecting
+textual data to domain theories (usually institutional or behavioural).
+A running theme in this course is that TADA is about extending traditional
+social science measurement strategies to deal with language.
 
 ## Lecture
 
 [Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+
+## Readings
+
+- Grimmer and Stewart 2013 'Text as Data: The Promise and Pitfalls of
+  Automatic Content Analysis Methods for Political Documents' Political
+  Analysis.
 
 ## Assignment
 

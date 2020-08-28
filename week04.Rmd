@@ -4,7 +4,7 @@ date: "October 1st, 2020"
 description: "Evaluation and Analysis"
 ---
 
-*Learning Objective*: How to use the interpret, evaluate, and improve a dictionary-based analysis 
+
 
 ## Lecture
 

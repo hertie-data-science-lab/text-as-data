@@ -4,11 +4,27 @@ date: "September 17th, 2020"
 description: ""
 ---
 
-*Learning Objective*: Understand how classification and measurement models from statistics relate to text analysis
+This week we consider text in the same way we might think of economic
+and social data. Naturally this will pose some challenges, notably
+high dimensionality and very skewed frequency distributions at almost
+all levels of unit, from paragraphs to documents. These pose some
+unique measurement challenges, but have fairly intuitive, if sometimes
+technically troublesome solutions.
+
+It is traditional in all kinds of statistical studies  to distinguish
+data 'pre-processing' from data 'modeling' or 'analysis'. TADA also
+does so, but we will emphasize that all pre-processing is a form of
+measurement modeling that brings efficiencies but also potential hazards.
+Text pre-processing will be a major practical component
+to most TADA analyses, so we should know what we are doing.
 
 ## Lecture
 
 [Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+
+## Readings
+
+- Spirling and Denny on preprocessing
 
 ## Assignment
 
