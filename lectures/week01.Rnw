@@ -624,7 +624,7 @@ Everything you learned in your categorical data analysis course applies
 
 %%%%%%%%%%%
 
-
+\end{frame}
 \begin{frame}{Statistical assumptions about words}
 
 Word counts/rates are conditionally \textit{Poisson}:
@@ -699,15 +699,17 @@ For each research problem involving content analysis we need to ask:
 
 \end{frame}
 
-\begin{frame}{Exchangeability and the 'bag of words'}
+\begin{frame}{Exchangeability and the `bag of words'}
 
-\centerline{include_graphics[scale=0.3]{"pictures/fdp-en.png"}}
+~\\
+\centerline{\includegraphics[scale=0.4]{"pictures/fdp-en.png"}}
 
 \end{frame}
 
 \begin{frame}{The marginal challenge}
 
 The original:
+
 ~\\
 \begin{quote}
 Reasonable relief of the working middle class and
@@ -727,6 +729,7 @@ Given the \textit{marginal distribution of word types} a.k.a. the `bag of words'
 \begin{frame}{Slightly different...}
 
 A possible reconstruction
+
 ~\\
 \begin{quote}
 We oppose higher taxes because they prevent growth and
@@ -744,6 +747,7 @@ But much the same sense
 
 We can make this a more semantic challenge by only demanding
 the substantically interesting word margins are maintained.
+
 ~\\
 \begin{quote}
 businesses reasonable existence countless
