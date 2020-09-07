@@ -1,5 +1,4 @@
 \documentclass{hertieteaching}
-\usepackage{cancel}
 
 \title{Quantitative Text Analysis}
 
@@ -10,39 +9,75 @@
 \begin{frame}{Text as data}
 
 <<r, include = FALSE>>=
-options(width = 60)
-library(knitr)
-library(tidyverse)
-library(quanteda)
-library(xtable)
-
-opts_knit$set(error = FALSE)
-opts_chunk$set(comment = NA,
-               fig.align = "center",
-               echo = FALSE)
-options(xtable.floating = FALSE,
-        latex.environments = "center",
-        xtable.comment = FALSE,
-        xtable.booktabs = TRUE)
+# source("week-01.R")
+load("scalars/week01.rda")
 @
 
-This is not a course on linguistics.
-
-\pause
-
-How to learn about
-
-\begin{itemize}
-  \item party platforms
-  \item legislative agendas
-  \item parliamentary debates
-  \item bloggers
-  \item presidents
-\end{itemize}
-
-by counting (lots of) words?
+%This is not a course on linguistics.
+%
+%\pause
+%
+%How to learn about
+%
+%\begin{itemize}
+%  \item party platforms
+%  \item legislative agendas
+%  \item parliamentary debates
+%  \item bloggers
+%  \item presidents
+%\end{itemize}
+%
+%by counting (lots of) words?
 
 \end{frame}
+
+%\begin{frame}{Text as data}
+
+%A Theory/measurement distinction
+
+%
+%Discourse analysis tends to *tightly couple* theory and measurement
+%
+%\footnotesize
+%**A complete package**
+%
+%Although discourse analysis can be applied to all areas of
+%research, it cannot be used with all kinds of theoretical
+%framework. Crucially, it is not to be used as a method of
+%analysis detached from its theoretical and methodological
+%foundations. Each approach to discourse analysis that
+%we present is not just a method for data analysis, but a
+%theoretical and methodological whole - a complete package.
+%[...] In discourse and analysis theory and method are
+%intertwined and researchers must accept the basic
+%philosophical premises in order to use discourse analysis as
+%their method of empirical study.
+%\normalsize
+%
+%[@Jorgensen.Phillips2002]
+%
+
+
+
+%This is not a course on linguistics.
+%
+%\pause
+%
+%How to learn about
+%
+%\begin{itemize}
+%  \item party platforms
+%  \item legislative agendas
+%  \item parliamentary debates
+%  \item bloggers
+%  \item presidents
+%\end{itemize}
+%
+%by counting (lots of) words?
+%
+
+%\end{frame}
+
 \begin{frame}{Transcendental question}
 
 
@@ -308,24 +343,6 @@ They are \textit{difficult}
 
 \begin{frame}{Difficult words}
 
-<<results="hide">>=
-load("data/corpus_uk_manif.rda")
-main_parties <- c('Con', 'Lab', 'LD', 'UKIP', 'SNP')
-election_years <- c(2017, 2015, 2010, 2005)
-subcorp <- corpus_subset(corpus_uk_manif,
-                         year %in% election_years &
-                         party %in% main_parties)
-dfmsubcorp <- dfm(subcorp, remove_punct = TRUE)
-
-con2017dfm <- dfm_subset(dfmsubcorp, year == 2017 & party == "Con")
-wcounts <- textstat_frequency(con2017dfm)
-
-used <- nrow(wcounts) # used at least once
-used_per <- 100 * used / nfeat(con2017dfm)
-hapaxes <- nrow(wcounts[wcounts$frequency == 1,])
-hapaxes_per <- 100 * hapaxes / nfeat(con2017dfm)
-@
-
 Example: Conservative party 2017 manifesto compared to other parties in two elections:
 
 \begin{center}
@@ -355,36 +372,18 @@ $\alpha\approx 1$
 
 \begin{frame}{Difficult at all scales}
 
-<<allscalesprep,results = "hide">>=
-res <- bind_rows("Cons 1997" = wcounts,
-                 "Corpus" = textstat_frequency(dfmsubcorp),
-                 .id = "Source")
-theme_set(theme_minimal())
-@
+
+
 
 \begin{columns}[T,onlytextwidth]
 \column{0.45\textwidth}
 
-<<allscalesorig,fig.align='center', fig.height = 3.2, fig.width = 3.2>>=
-ggplot(sample_frac(res, 0.5),
-       aes(rank, frequency, color = Source)) +
-  geom_point(alpha = 0.5) +
-  scale_color_manual(values = c("Corpus" = "grey",
-                                "Cons 1997" = "black")) +
-  theme(legend.position = c(.8, .8))
-@
+\centerline{\includegraphics{figures/allscalesorig}}
 
 \column{0.1\textwidth}
 \column{0.45\textwidth}
 
-<<allscaleslog,fig.align='center', fig.height = 3.2, fig.width = 3.2>>=
-ggplot(res, aes(rank, frequency, color = Source)) +
-  geom_point() +
-  scale_color_manual(values = c("Corpus" = "grey",
-                                "Cons 1997" = "black"))+
-    scale_x_log10() + scale_y_log10() +
-  theme(legend.position=c(.8, .8))
-@
+\centerline{\includegraphics{figures/allscaleslog}}
 
 \end{columns}
 
@@ -411,35 +410,7 @@ Here's the Conservative party manifesto
 \column{0.05\textwidth}
 \column{0.45\textwidth}
 
-<<heaps,warnings=FALSE,fig.align='center', fig.height = 3.2, fig.width = 3.2>>=
-tks <- as.character(tokens_tolower(tokens(subcorp[["UK_natl_2017_en_Con.txt"]], remove_punct = TRUE)))
-unique_tks <- unique(tks)
-ll <- list()
-newtypes <- integer(length(unique_tks))
-for (i in seq_along(newtypes)) {
-  if (is.null(ll[[ tks[i] ]]))
-    ll[[ tks[i] ]] <- 1
-  newtypes[i] <- length(ll)
-}
-dd <- data.frame(newtype = newtypes, token = 1:length(newtypes))
-
-tksall <- sample(as.character(tokens_tolower(tokens(subcorp, remove_punct = TRUE))))
-unique_tksall <- unique(tksall)
-ll <- list()
-newtypes <- integer(length(unique_tksall))
-for (i in seq_along(newtypes)) {
-  if (is.null(ll[[ tksall[i] ]]))
-    ll[[ tksall[i] ]] <- 1
-  newtypes[i] <- length(ll)
-}
-ddall <- data.frame(newtype = newtypes, token = 1:length(newtypes))
-
-ggplot(ddall, aes(token, newtype)) +
-  geom_abline(intercept = 0, slope = 1, col = "gray", linetype = "dashed") +
-  geom_line() +
-  scale_x_log10() + scale_y_log10() +
-  labs(x = "tokens", y = "word types")
-@
+\centerline{\includegraphics{figures/heaps}}
 
 \end{columns}
 
@@ -456,12 +427,7 @@ Frequency is inversely proportional to substantive interestingness
 \column{0.33\textwidth}
 
 \begin{center}
-<<inter,results="asis">>=
-tbl <- textstat_frequency(dfmsubcorp)[1:6, 1:2]
-names(tbl) <- c("Word", "Freq.")
-print(xtable(tbl, digits = 0))
-@
-
+\input{tables/table1}
 ~\\
 Top 10
 \end{center}
@@ -470,26 +436,14 @@ Top 10
 
 \begin{center}
 
-<<bottomten,results="asis">>=
-tbl <- tail(textstat_frequency(dfmsubcorp), 6)[, 1:2]
-names(tbl) <- c("Word", "Freq.")
-print(xtable(tbl, digits = 0))
-@
-
+\input{tables/table2}
 ~\\
 Bottom ten
 \end{center}
 
 \column{0.33\textwidth}
 \begin{center}
-<<topfiltered,results="asis">>=
-tf <- filter(textstat_frequency(dfmsubcorp),
-             !(feature %in% stopwords("english")))
-tbl <- head(tf, 6)[, 1:2]
-names(tbl) <- c("Word", "Freq.")
-print(xtable(tbl, digits = 0))
-@
-
+\input{tables/table3}
 ~\\
 Top ten minus \textit{stopwords}
 \end{center}
@@ -640,7 +594,12 @@ Everything you learned in your categorical data analysis course applies
 %%%%%%%%%%%
 
 \end{frame}
-\begin{frame}[t]\frametitle{What we want}
+\begin{frame}[t]\frametitle{Count data}
+
+We have turned a corpus into a \textit{contingency table}.
+\begin{itemize}
+\item (Or a term-document / document-term / document-feature matrix, in the lingo)
+\end{itemize}
 
 \begin{center}
 {\small
@@ -656,7 +615,65 @@ doc 2 & 0     & 0  & 1 & 1    & 0    & \ldots & \textcolor{gray}{$\theta_\text{d
 \end{tabular}
 }
 \end{center}
-~\\\
+
+
+Everything you learned in your categorical data analysis course applies
+\begin{itemize}
+\item except that the variables of interest: $\theta$ are \textit{not observed}
+\end{itemize}
+
+%%%%%%%%%%%
+
+
+\begin{frame}{Statistical assumptions about words}
+
+Word counts/rates are conditionally \textit{Poisson}:
+$$
+W_j ~\sim~ \text{Poisson}(\textcolor{black}{\lambda_{j}})
+$$
+Curiously
+$$
+\ex[W]  ~=~ \text{Var}[W] ~=~ \lambda
+$$
+
+Rate models are naturally \textit{multiplicative}.
+\begin{itemize}
+  \item Rates increase / decrease by X\%
+\end{itemize}
+
+Model assumptions are will turn on how $\lambda$ is
+related to $\theta$
+
+\end{frame}
+
+%## Statistical assumptions about words
+%
+%%## Statistical models of words: Poisson
+%
+%```{r, out.width="80%"}
+%knitr::include_graphics("pictures/geiger-counter.jpg")
+%```
+%
+
+\begin{frame}{Statistical assumptions about words}
+
+That means that for fixed document lengths, counts are conditionally \textit{Multinomial}:
+$$
+W_{i1}\ldots W_{iV} ~\sim~ \text{Mult}(W_{i1}\ldots W_{iV} \mid \textcolor{black}{\pi_{1}}\ldots\textcolor{black}{\pi_{V}}, N_i)
+$$
+Here
+$$
+\ex[W] = N\pi
+$$
+and
+$$
+\text{Cov}[W_{i}, W_{j}] = -N \pi_{i}\pi_{j}
+$$
+
+Negative covariance is due to the `budget constraint'
+\end{frame}
+
+\begin{frame}\frametitle{Modelling decisions}
 
 For each research problem involving content analysis we need to ask:
 \begin{itemize}
@@ -668,6 +685,98 @@ For each research problem involving content analysis we need to ask:
 \end{itemize}
 
 \end{frame}
+
+
+\begin{frame}{The space of models}
+
+\centerline{\includegraphics[scale=0.25]{"pictures/tad-picture.png"}}
+
+\end{frame}
+
+\begin{frame}{In the general measurement problem}
+
+\centerline{\includegraphics[scale=0.25]{"pictures/measurement-validity.png"}}
+
+\end{frame}
+
+\begin{frame}{Exchangeability and the 'bag of words'}
+
+\centerline{include_graphics[scale=0.3]{"pictures/fdp-en.png"}}
+
+\end{frame}
+
+\begin{frame}{The marginal challenge}
+
+The original:
+~\\
+\begin{quote}
+Reasonable relief of the working middle class and
+debt reduction do not exclude each other but are
+complementary. That proved to be true during
+the past four years. We oppose higher taxes on
+citizens and businesses. They prevent growth and
+kill jobs, thus putting at risk the very existence of
+countless workers and their families.
+\end{quote}
+
+
+Given the \textit{marginal distribution of word types} a.k.a. the `bag of words' how different could the meaning of the resulting document be?
+
+\end{frame}
+
+\begin{frame}{Slightly different...}
+
+A possible reconstruction
+~\\
+\begin{quote}
+We oppose higher taxes because they prevent growth and
+kill jobs, risking the very existence of
+countless families and businesses. Debt reduction is
+complementary to reasonable relief of the
+working middle class; they do not exclude each other.
+That proved to be true in the last four years.
+\end{quote}
+
+But much the same sense
+
+\end{frame}
+\begin{frame}{Looser constraints}
+
+We can make this a more semantic challenge by only demanding
+the substantically interesting word margins are maintained.
+~\\
+\begin{quote}
+businesses reasonable existence countless
+reduction families prevent risking working exclude oppose
+higher growth relief middle proved taxes class years kill
+jobs debt true last four complementary
+\end{quote}
+
+Removing stopwords mostly just removes \textit{grammatical} constraints
+
+\end{frame}
+\begin{frame}{But negation!}
+
+
+If we can add grammatical functors at will, could we
+make the opposite meaning by negating everything?
+
+In principle (and in practice for some discursive forms) yes, yes we could.
+
+And the bag of words assumption would fail
+
+\pause
+
+An interesting *empirical fact* about political discourse is that
+actors do not tend to disagree by negation but by redirection or
+diversion.
+\begin{itemize}
+  \item Simple version: You talk about the environment, I talk about economic growth
+  \item Sophisticated version: The `heresthetic' \parencite{Riker.etal1996}
+\end{itemize}
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
