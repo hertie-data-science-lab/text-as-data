@@ -1,4 +1,5 @@
 \documentclass{hertieteaching}
+\usepackage{pifont}
 
 \title{Quantitative Text Analysis}
 
@@ -6,12 +7,99 @@
 
 \maketitle
 
-\begin{frame}{Text as data}
+\begin{frame}{Text as data: The approach}
 
 <<r, include = FALSE>>=
 # source("week-01.R")
 load("scalars/week01.rda")
 @
+
+Four broad approaches to studying text data
+\begin{itemize}
+  \item Just read it and think a bit, e.g. op-eds, punditry, kremlinology, grand strategy, etc.
+  \item Discourse Analysis
+  \item Natural Language Processing (NLP)
+  \item Text as Data (TADA)
+\end{itemize}
+the last two are, broadly, Computational Linguistics,
+but with a different focus
+
+\end{frame}
+\begin{frame}{Not discourse analysis}
+
+~\\
+\begin{quote}
+Although discourse analysis can be applied to all areas of
+research, it cannot be used with all kinds of theoretical
+framework. Crucially, it is not to be used as a method of
+analysis detached from its theoretical and methodological
+foundations. Each approach to discourse analysis that
+we present is not just a method for data analysis, but a
+theoretical and methodological whole - a complete package.
+[...] In discourse and analysis theory and method are
+intertwined and researchers must accept the basic
+philosophical premises in order to use discourse analysis as
+their method of empirical study.\\
+\hfill\parencite{Jorgensen.Phillips2002}
+\end{quote}
+
+\textit{Apparent} differences are theoretical. The important difference for us is that
+\begin{itemize}
+  \item Discourse analysis \textit{tightly couples} theory and measurement
+\end{itemize}
+
+Substantive theory $\neq$ textual measurement\ldots but they do have implications for one another
+
+\end{frame}
+\begin{frame}{Not (just) nlp}
+
+Overlapping NLP tasks
+\begin{itemize}
+  \item Segmentation / tokenization: Locating words and sentences
+  \item Part of Speech (POS) tagging: Associating grammatical
+         roles with words (noun, verb, determiner, preposition, etc.)
+  \item Parsing: grammatical structure from sentences
+\end{itemize}
+Distinctly NLP tasks
+\begin{itemize}
+  \item Named Entity Recognition (NER): Identifying people, places, and things
+  \item Information Extraction (IE): Extracting `facts' (who did what to whom, when)
+\end{itemize}
+
+%Tools:
+%
+%- [Spacy](https://spacy.io) (Python) via `{spacyr}`,
+%  [Stanford NLP tools](https://nlp.stanford.edu/software/),
+%  (Java) via `{CoreNLP}` (or `{cleanNLP}` which wraps both).
+%  Also [OpenNLP](http://opennlp.apache.org/) (Java) via
+%  `{openNLP}`.
+%
+
+\end{frame}
+\begin{frame}{Text as data: The approach}
+
+We are the measurement component for social science theory
+\begin{itemize}
+  \item Theory provides the things to be measured
+  \item Words and sometimes other things provide the data to measure them
+  \item Language agnostic, behaviourist, structurally indifferent, shamelessly opportunistic
+  \item obsessed with counting words
+\end{itemize}
+
+If Discourse analysis offers close reading, we will offer \textit{distant reading}
+
+Advantages
+\begin{itemize}
+  \item Scales well
+  \item Easy to integrate into existing models 
+  \item Can guide close reading later
+\end{itemize}
+
+\end{frame}
+
+
+
+
 
 %This is not a course on linguistics.
 %
@@ -29,7 +117,7 @@ load("scalars/week01.rda")
 %
 %by counting (lots of) words?
 
-\end{frame}
+
 
 %\begin{frame}{Text as data}
 
@@ -82,8 +170,7 @@ load("scalars/week01.rda")
 
 
 What are the \textit{conditions for the possibility}
- of learning about these
-things by counting words?
+for taking a TADA approach
 
 In plainer language:
 \begin{itemize}
@@ -103,9 +190,7 @@ e.g.
 \end{itemize}
 and \textit{behaviour}, including \textit{linguistic behaviour}, e.g.
 \begin{itemize}
-  \item yelling
-  \item writing
-  \item lecturing
+  \item yelling, writing, lecturing
 \end{itemize}
 which \textit{can} be directly observed.
 
@@ -328,6 +413,15 @@ Note: this is randomness \textit{conditional on the institution}
 
 \end{frame}
 
+\begin{frame}{}
+
+\vfill
+\vspace{10ex}
+\centerline{\Huge\Pisymbol{MinionPro-Extra}{121}}
+\vfill
+
+\end{frame}
+
 \begin{frame}{Words as data}
 
 What do we know about words as data?
@@ -343,29 +437,25 @@ They are \textit{difficult}
 
 \begin{frame}{Difficult words}
 
-Example: Conservative party 2017 manifesto compared to other parties in two elections:
+Example: Conservative party 2017 manifesto compared to other parties over four elections:
 
-\begin{center}
-\begin{tabular}{ll}\toprule
-  High dimensional  & \Sexpr{used} word types (adult native english speakers know ~20-35,000) \\
-   Sparse & Of these, the Conservatives only used \Sexpr{round(used_per, 1)}) \\
-   Skewed &  Of these \Sexpr{round(hapaxes_per, 1)}\% words appear exactly once\\ \bottomrule
-  \end{tabular}
-\end{center}
+\begin{itemize}
+  \item \textit{High dimensional}.  \Sexpr{used} word types (adult native english speakers know ~20-35,000)
+  \item \textit{Sparse}. Of \Sexpr{as.integer(totaltypes)}, word types in total, the Conservatives only used \Sexpr{round(used, 1)}
+  \item \textit{Skewed}. Of these \Sexpr{round(hapaxes, 1)} words appeared exactly once and the most frequent word \Sexpr{round(mostfreq, 1)} times
+\end{itemize}
 
-\end{frame}
-
-\begin{frame}{Difficult words}
-
+\pause 
+~\\
 More generally: the Zipf-Mandelbrot law \parencite{Zipf1932,Mandelbrot1966}
 $$
 F(W_i) \propto 1/{\text{rank}(W_i)^\alpha}
 $$
 where $\text{rank}(.)$ is the
-frequency *rank* of a word in the vocabulary and
+frequency \textit{rank} of a word in the vocabulary and
 $\alpha\approx 1$
 
-(This is a Pareto distribution in disguise)
+This is a Pareto distribution in disguise
 
 \end{frame}
 
@@ -378,16 +468,16 @@ $\alpha\approx 1$
 \begin{columns}[T,onlytextwidth]
 \column{0.45\textwidth}
 
-\centerline{\includegraphics{figures/allscalesorig}}
+\centerline{\includegraphics[scale=0.7]{figures/allscalesorig}}
 
-\column{0.1\textwidth}
+%\column{0.1\textwidth}
 \column{0.45\textwidth}
 
-\centerline{\includegraphics{figures/allscaleslog}}
+\centerline{\includegraphics[scale=0.7]{figures/allscaleslog}}
 
 \end{columns}
 
-See also \cite{Chater.Brown1999} on scale invariance.
+See \textcite{Chater.Brown1999} on scale invariance.
 
 \end{frame}
 
@@ -405,12 +495,12 @@ where $K$ is between 10 and 100 and $\beta \approx 0.5$ for English.
 
 ~\\
 
-Here's the Conservative party manifesto
+(All the party manifestos shown here)
 
 \column{0.05\textwidth}
 \column{0.45\textwidth}
 
-\centerline{\includegraphics{figures/heaps}}
+\centerline{\includegraphics[scale=0.7]{figures/heaps}}
 
 \end{columns}
 
@@ -422,12 +512,12 @@ Here's the Conservative party manifesto
 Frequency is inversely proportional to substantive interestingness
 
 ~\\
-
 \begin{columns}[T,onlytextwidth]
 \column{0.33\textwidth}
 
 \begin{center}
 \input{tables/table1}
+
 ~\\
 Top 10
 \end{center}
@@ -437,6 +527,7 @@ Top 10
 \begin{center}
 
 \input{tables/table2}
+
 ~\\
 Bottom ten
 \end{center}
@@ -444,6 +535,7 @@ Bottom ten
 \column{0.33\textwidth}
 \begin{center}
 \input{tables/table3}
+
 ~\\
 Top ten minus \textit{stopwords}
 \end{center}
@@ -491,7 +583,7 @@ Since ontogeny recapitulates phylogeny, let's walk through some standard text pr
 \begin{frame}[t]\frametitle{Punctuation invariance}
 
 \begin{quote}As I look ahead I am filled with foreboding.  Like the Roman I seem to see `the river Tiber flowing with much blood'\ldots ''\\
-(E. Powell, 1968)
+\hfill\parencite{Powell1968}
 \end{quote}
 
 \pause
@@ -580,10 +672,8 @@ type      & ahead   & 1    & 0 \\
 
 We have turned a corpus into a \textit{contingency table}.
 \begin{itemize}
-\item (Or a term-document / document-term / document-feature matrix, in the lingo)
+\item Or a term-document / document-term / document-feature matrix, in the lingo
 \end{itemize}
-
-\pause
 
 ~\\
 Everything you learned in your categorical data analysis course applies
@@ -598,7 +688,7 @@ Everything you learned in your categorical data analysis course applies
 
 We have turned a corpus into a \textit{contingency table}.
 \begin{itemize}
-\item (Or a term-document / document-term / document-feature matrix, in the lingo)
+\item Or a term-document / document-term / document-feature matrix, in the lingo
 \end{itemize}
 
 \begin{center}
@@ -621,6 +711,7 @@ Everything you learned in your categorical data analysis course applies
 \begin{itemize}
 \item except that the variables of interest: $\theta$ are \textit{not observed}
 \end{itemize}
+What are we going to assume about the cell contents?
 
 %%%%%%%%%%%
 
@@ -677,11 +768,11 @@ Negative covariance is due to the `budget constraint'
 
 For each research problem involving content analysis we need to ask:
 \begin{itemize}
+\item What \textit{structure} does $\theta$ have
 \item What counts as a \textit{word}?
 \item What counts as a \textit{document}?
-\item What \textit{structure} does $\theta$ has
 \item What is \textit{observed}, what is \textit{assumed}, and what is \textit{inferred}?
-\item What the \textit{relationship} is between $\theta$ and the words? The model
+\item What is the \textit{relationship} is between $\theta$ and the words? The model
 \end{itemize}
 
 \end{frame}
@@ -696,6 +787,15 @@ For each research problem involving content analysis we need to ask:
 \begin{frame}{In the general measurement problem}
 
 \centerline{\includegraphics[scale=0.25]{"pictures/measurement-validity.png"}}
+
+\end{frame}
+
+\begin{frame}{}
+
+\vfill
+\vspace{10ex}
+\centerline{\Huge\Pisymbol{MinionPro-Extra}{121}}
+\vfill
 
 \end{frame}
 
@@ -758,7 +858,11 @@ jobs debt true last four complementary
 
 Removing stopwords mostly just removes \textit{grammatical} constraints
 
+~\\
+To the extent this set of words characterizes what the FDP wanted to express in their platform, the `bag of words' assumption is reasonable.
+
 \end{frame}
+
 \begin{frame}{But negation!}
 
 
@@ -771,7 +875,7 @@ And the bag of words assumption would fail
 
 \pause
 
-An interesting *empirical fact* about political discourse is that
+An interesting \textit{empirical fact} about political discourse is that
 actors do not tend to disagree by negation but by redirection or
 diversion.
 \begin{itemize}
@@ -780,6 +884,43 @@ diversion.
 \end{itemize}
 
 \end{frame}
+
+
+\begin{frame}{Exchangeability and the `bag of words'}
+	
+Technically a sequence of random variables is \textit{exchangeable} if 
+their \textit{joint probability distribution} is invariant to reordering them
+\begin{itemize}
+  \item a `weaker' relationship than identical and independently distributed (iid)
+\end{itemize}
+
+\textcite{deFinetti2008} showed that if we assume $\{W_i\}$ are exchangeable, then this is equivalent to assuming that they are (loosely speaking) generated by a distribution parameterize dby some $\theta$:
+$$
+P(W_1 \ldots W_V) = \int \prod^V_v P(W_v \mid \theta) P(\theta) d\theta 
+$$
+This is `the Representation Theorem' and motivates our measurement model assumptions earlier
+
+\begin{center}
+\begin{tikzpicture}
+\node(pre) at (0,   0) [var]{};
+\node(W1) at  (1, 0)[var]{};
+\node(W2) at  (2,   0) [var]{};
+\node(W3) at  (3, 0) [var]{};
+\node(theta) at (2,1)  [lat,label=above:$\theta$]{};
+\node(post) at (4, 0) [var]{};
+\draw  (theta) -- (pre);
+\draw  (theta) -- (W1);
+\draw  (theta) -- (W2);
+\draw  (theta) -- (W3);
+\draw  (theta) -- (post);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{}
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -28,13 +28,14 @@ con2017dfm <- dfm_subset(dfmsubcorp, year == 2017 & party == "Con")
 wcounts <- textstat_frequency(con2017dfm)
 
 used <- nrow(wcounts) # used at least once
-used_per <- 100 * used / nfeat(con2017dfm)
+used_per <- 100 * used / nfeat(dfmsubcorp)
 hapaxes <- nrow(wcounts[wcounts$frequency == 1,])
 hapaxes_per <- 100 * hapaxes / nfeat(con2017dfm)
-
+mostfreq <- wcounts$frequency[1]
+totaltypes <- ncol(dfmsubcorp)
 
 ## ----allscalesprep,results = "hide"----------------------------------------------------------------------
-res <- bind_rows("Cons 1997" = wcounts,
+res <- bind_rows("Cons 2017" = wcounts,
                  "Corpus" = textstat_frequency(dfmsubcorp),
                  .id = "Source")
 theme_set(theme_minimal())
@@ -45,7 +46,7 @@ ggplot(sample_frac(res, 0.5),
        aes(rank, frequency, color = Source)) +
   geom_point(alpha = 0.5) +
   scale_color_manual(values = c("Corpus" = "grey",
-                                "Cons 1997" = "black")) +
+                                "Cons 2017" = "black")) +
   theme(legend.position = c(.8, .8))
 ggsave("figures/allscalesorig.pdf", height = 3.2, width = 3.2)
 
@@ -53,7 +54,7 @@ ggsave("figures/allscalesorig.pdf", height = 3.2, width = 3.2)
 ggplot(res, aes(rank, frequency, color = Source)) +
   geom_point() +
   scale_color_manual(values = c("Corpus" = "grey",
-                                "Cons 1997" = "black"))+
+                                "Cons 2017" = "black"))+
     scale_x_log10() + scale_y_log10() +
   theme(legend.position=c(.8, .8))
 ggsave("figures/allscaleslog.pdf", height = 3.2, width = 3.2)
@@ -109,4 +110,4 @@ names(tbl) <- c("Word", "Freq.")
 print(xtable(tbl, digits = 0),  file = "tables/table3.tex")
 
 ## save the rest
-save(used, hapaxes_per, used_per, file = "scalars/week01.rda")
+save(used, hapaxes, used, mostfreq, totaltypes, file = "scalars/week01.rda")
