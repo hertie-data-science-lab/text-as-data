@@ -19,7 +19,14 @@ social science measurement strategies to deal with language.
 
 ## Lecture
 
-[Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+- [Lecture part 1](https://dl.conjugateprior.org/tada/tada-week1-1.mov)
+
+- [Lecture part 2](https://dl.conjugateprior.org/tada/tada-week1-2.mov)
+
+- [Lecture part 3](https://dl.conjugateprior.org/tada/tada-week1-3.mov)
+
+
+- [Official moodle link](https://moodle.hertie-school.org/course/index.php?categoryid=266) (not there yet!)
 
 ## Readings
 
@@ -27,6 +34,3 @@ social science measurement strategies to deal with language.
   Automatic Content Analysis Methods for Political Documents' Political
   Analysis.
 
-## Assignment
-
-[Link](https://rstudio.cloud/)
