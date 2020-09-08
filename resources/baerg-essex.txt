@@ -1,0 +1,95 @@
+
+
+Meetings
+
+Classes will meet for ten sessions. Approximately 2/3 of the time will be devoted to lectures, and the other 1/3 will consist of “lab” sessions where we will work through exercises in class.
+
+Computer Software Computer-based exercises will feature prominently in the course, especially in the lab sessions. The use of all software tools will be explained in the sessions, including how to download and install them. We will be working primarily in R, using the “quanteda” package.
+
+Recommended Texts There is no really good single textbook that exists to cover computerized or quantitative text analysis.
+
+• Krippendorff, K. (2013). Content Analysis: An Introduction to Its Methodology. Sage, Thousand Oaks, CA, 3rd edition. Another good general reference to content analysis that you might find useful as a supplement is:
+
+• Neuendorf, K. A. (2002). The Content Analysis Guidebook. Sage, Thousand Oaks, CA. A good general statistics reference for Machine Learning in R is:
+
+• James, G., Witten, D., & Hastie, T. (2014). An Introduction to Statistical Learning: With Applications in R. Taylor and Francis. A good book on annotation software to annotate or markup your own texts is:
+
+• Pustejovsky, J., & Stubbs, A. (2012). Natural language annotation for machine learning. O’Reilly Media, Inc..
+
+Detailed Course Schedule Day 1: Quantitative text analysis overview and fundamentals This topic will introduce the goals and logistics of the course, provide an overview of the topics to be covered, and preview the software to be used. It will also introduce traditional (non-computer assisted) content analysis and distinguish this from computer-assisted methods and quantitative text analysis. We will cover the conceptual foundations of content analysis and quantitative content analysis, discuss the objectives, the approach to knowledge, and the particular view of texts when performing quantitative analysis. We will also work through some published examples.
+
+Required Reading: Krippendorff (2013, Ch. 1,2,4) Wallach (2014)
+
+Recommended Reading: Grimmer and Stewart (2013) Roberts (2000)
+
+Lab session: Exercise 1: Working with Texts in quanteda
+
+Day 2: Textual Data, Units of Analysis, Definitions of Documents and Features Textual data comes in many forms. Here we discuss those formats, and talk about text processing preparation of texts. These issues include where to obtain textual data; formatting and working with text files; indexing and meta-data; units of analysis; and definitions of features and measures commonly extracted from texts, including stemming, stop-words, and feature weighting.
+
+Required Reading: Jivani (2011) http://en.wikipedia.org/wiki/Stop_words Manning, Raghavan and Schütze (2008, 117–120)
+
+Recommended Reading: Denny and Spirling (2016) Krippendorff (2013, Ch. 5,6,7) Wikipedia entry on Character encoding, http://en.wikipedia.org/wiki/Text_encoding Browse the different text file formats at http://www.fileinfo.com/filetypes/text
+
+Lab session: Exercise 2: Extracting features from texts
+
+Day 3: Descriptive statistical methods for textual analysis Here we focus on quantitative methods for describing texts, focusing on summary measures that highlight particular characteristics of documents and allowing these to be compared. These methods include characterizing texts through concordances, co-occurrences, and keywords in context; complexity and readability measures; and an in-depth discussion of text types, tokens, and equivalencies.
+
+Required Reading: Spirling (2016)
+
+Recommended Reading: DuBay (2004) Krippendorff (2013, Ch. 10)
+
+Lab session: Exercise 3: Descriptive summaries of texts
+
+Day 4: Quantitative methods for comparing texts Quantitative methods for comparing texts, through concordances and keyword identification, dissimilarity measures, association models, and vector-space models.
+
+Required Reading: Lowe et al. (2011) Manning, Raghavan and Schütze (2008, Section 6.3)
+
+Recommended Reading: Krippendorff (2013, Ch. 11)
+
+Lab session: Exercise 4: Document similarity and resampling texts
+
+Day 5: Automated dictionary methods Automatic dictionary-based methods involve association of pre-defined word lists with particular quantitative values assigned by the researcher for some characteristic of interest. This topic covers the design model behind dictionary construction, including guidelines for testing and refining dictionaries. We will also review a variety of text pre-processing issues and textual data concepts such as word types, tokens, and equivalencies, including word stemming and trimming of words based on term and/or document frequency.
+
+Required Reading: Laver and Garry (2000) Rooduijn and Pauwels (2011) Loughran and McDonald (2011)
+
+Recommended Reading: Pennebaker and Chung (2008)
+
+Assignment: Exercise 5: Applying dictionary coding
+
+Day 6: Document classifiers and Supervised Learning Supervised classification methods permit the automatic classification of texts in a test set following machine learning from a training set. We will introduce machine learning methods for classifying documents, including one of the most popular classifiers, the Naive Bayes model, as well as k-nearest neighbour and support vector machines (SVMs). The topic also introduces validation and reporting methods for classifiers and discusses where these methods are applicable as well as pitfalls and problems which each method.
+
+Required Reading: James et al. (2013, Ch.4,5,9,8) Evans et al. (2007) Statsoft, “Naive Bayes Classifier Introductory Overview,” http://www.statsoft.com/textbook/ naive-bayes-classifier/.
+
+Recommended Reading: An online article by Paul Graham on classifying spam e-mail. http://www.paulgraham.com/spam.htmlBionicspirit.com, 9 Feb 2012, “How to Build a Naive Bayes Classifier,” http://bionicspirit.com/blog/2012/02/09/howto-build-naive-bayes-classifier.html. Yu, Kaufmann and Diermeier (2008)
+
+Assignment: Exercise 6: Examining movie reviews and political speeches by author. http://www.cs.cornell. edu/People/pabo/movie-review-data/ and the 10th Republican Presidential candidate debate using R and the quanteda package.
+
+Day 7: Document classifiers and Unsupervised Learning Unlike in supervised learning methods, in unsupervised learning, we only have input data and no corresponding labeled output variables. The goal for unsupervised learning is therefore to model the underlying structure of the data. Algorithms such as clustering and hierarchical clustering are used to try to discover and present the interesting structure in the data.
+
+Required Reading: James et al. (2013, Ch.10)
+
+Recommended Reading: Quinn et al. (2010)
+
+Assignment: Exercise 7: Examining UK political parties and Immigration speeches using R and the quanteda package.
+
+Day 8: Scaling Texts This topic introduces methods for placing documents on continuous dimensions or “scales”, introducing the major non-parametric methods for scaling documents and discusses the situations where scaling methods are appropriate. Building on the Naive Bayes classifier, we introduce the “Wordscores” method of Laver, Benoit and Garry (2003) and show the link between classification and scaling. We also discusses the similarities and differences to other non-parametric scaling models such as correspondence analysis. We then look at scaling texts based on parametric approaches modelling features as Bernoulli or Poisson distributed, and contrasts these methods to other alternatives, critically examining the assumptions such models rely upon.
+
+Required Reading: Laver, Benoit and Garry (2003) Slapin and Proksch (2008) Lowe and Benoit (2013)
+
+Recommended Reading: Martin and Vanberg (2007) Benoit and Laver (2007) Lowe (2008) Clinton, Jackman and Rivers (2004)
+
+Assignment: Exercise 8: Wordscoring and “Wordfish” (Requires R).
+
+Day 9: Clustering methods and topic models An introduction to hierarchical clustering for textual data, including parametric topic models such as Latent Dirichlet Allocation (LDA). We also look at recent work that tries to combine both scaling and topic modeling together in a “semi-supervised” approach.
+
+Required Reading: Blei (2012) Blei, Ng and Jordan (2003) Baerg and Lowe (2016) Roberts et al. (2014)
+
+Assignment: Exercise 9: Using LDA to estimate document topics.
+
+Day 10: Promises & Pitfalls We will discuss when and why QTA can lead us astray, making particular attention to concerns of reliability and validity.
+
+Required Reading: Ginsberg et al. (2009) Lazer et al. (2014) Bunea and Ibenskas (2015)
+
+Recommended Reading: Krippendorff (2013, Ch.12–13 )
+
+References Baerg, Nicole Rae andWill Lowe. 2016. “A Textual Taylor Rule: Estimating Central Bank Preferences Combining Topic and Scaling Methods.” Working Paper . Benoit, Kenneth and M Laver. 2007. “Compared to What? A Comment on “A Robust Transformation Procedure for Interpreting Political Text” by Martin and Vanberg.” Political Analysis 16(1):101–111. Blei, David M. 2012. “Probabilistic topic models.” Communications of the ACM 55(4):77. Blei, David M, Andrew Y Ng and Michael I Jordan. 2003. “Latent Dirichlet Allocation.” machinelearning.wustl.edu 3:993–1022. Bunea, Adriana and Raimondas Ibenskas. 2015. “Quantitative Text Analysis and the Study of EU Lobbying and Interest Groups.” European Union Politics 16(4). Clinton, Joshua, Simon Jackman and Douglas Rivers. 2004. “The Statistical Analysis of Roll Call Data.” American Political Science Review 98(02):355–370. Denny, Matthew James and Arthur Spirling. 2016. “Assessing the Consequences of Text Preprocessing Decisions.” Working Paper . DuBay, William H. 2004. “The Principles of Readability.” Online Submission pp. 1–78. Evans, M, W McIntosh, J Lin and C Cates. 2007. “Recounting the Courts? Applying Automated Content Analysis to Enhance Empirical Legal Research’(2007).” Journal of Empirical Legal Studies 4(4):1007–1039. Ginsberg, Jeremy, Matthew Mohebbi, Rajan Patel, Lynnette Brammer, Mark Smolinsk and Larry Brilliant. 2009. “Detecting Influenza Epidemics Using Search Engine Query Data.” Nature 457:1012– 1014. Grimmer, J and B M Stewart. 2013. “Text as Data: The Promise and Pitfalls of Automatic Content Analysis Methods for Political Texts.” Political Analysis 21(3):267–297. James, Gareth, Daniela Witten, Trevor Hastie and Robert Tibshirani. 2013. An introduction to statistical learning. Vol. 6 Springer. Jivani, A G. 2011. “A comparative study of stemming algorithms.” Int J Comp Tech Appl . Krippendorff, Klaus. 2013. Content Analysis: An Introduction to Its Methodology. Sage. Laver, M and J Garry. 2000. “Estimating policy positions from political texts.” American Journal of Political Science . Laver, Michael, Kenneth Benoit and John Garry. 2003. “Extracting Policy Positions from Political Texts Using Words as Data.” American Political Science Review 97(02):311–331. Lazer, David, Ryan Kennedy, Gary King and Alessandro Vespignani. 2014. “The Parable of Google Flu: Traps in Big Data Analysis.” Science 343. Loughran, Tim and Bill McDonald. 2011. “When Is a Liability Not a Liability? Textual Analysis, Dictionaries, and 10-Ks.” The Journal of Finance 66(1):35–65. Lowe, W. 2008. “Understanding Wordscores.” Political Analysis 16(4):356–371. Lowe, Will and Kenneth Benoit. 2013. “Validating Estimates of Latent Traits from Textual Data Using Human Judgement as a Benchmark.” Political Analysis . Lowe, Will, Kenneth Benoit, Slava Mikhaylov and Michael Laver. 2011. “Scaling Policy Preferences from Coded Political Texts.” Legislative Studies Quarterly 36(1):123–155. Manning, Christopher D, Prabhakar Raghavan and Hinrich Schütze. 2008. Introduction to Information Retrieval. Cambridge University Press. Martin, L W and G Vanberg. 2007. “A Robust Transformation Procedure for Interpreting Political Text.” Political Analysis 16(1):93–100. Pennebaker, J W and C K Chung. 2008. Computerized text analysis of Al-Qaeda transcripts. A content analysis reader. Quinn, Kevin M, Burt L Monroe, Michael Colaresi, Michael H Crespin and Dragomir R Radev. 2010. “How to analyze political attention with minimal assumptions and costs.” American Journal of Political Science 54(1):209–228. Roberts, CarlW. 2000. “A Conceptual Framework for Quantitative Text Analysis.” Quality and Quantity 34(3):259–274. Roberts, Margaret, Brandon Stewart, Dustin Tingley, Christopher Lucas, Jetson Leder-Luis, Shana Gadarian, Bethany Albertson and David Rand. 2014. “Structural Topic Models for Open-Ended Survey Responses.” American Journal of Political Science 58(4):1064–1082. Rooduijn, Matthijs and Teun Pauwels. 2011. “Measuring Populism: Comparing Two Methods of Content Analysis.” West European Politics 34(6):1272–1283. Slapin, Jonathan B and Sven-Oliver Proksch. 2008. “A Scaling Model for Estimating Time-Series Party Positions from Texts.” American Journal of Political Science 52(3):705–722. Spirling, Arthur. 2016. “Democratization and Linguistic Complexity: The Effect of Franchise Extension on Parliamentary Discourse, 1832–1915.” The Journal of Politics 78(1):120–136. Wallach, H. 2014. Big data, machine learning, and the social sciences: Fairness, accountability, and transparency. In NIPS Workshop on Fairness, Accountability, and Transparency in Machine Learning. Yu, Bei, Stefan Kaufmann and Daniel Diermeier. 2008. “Classifying Party Affiliation from Political Speech.” Journal of Information Technology & Politics 5(1):33–48.
