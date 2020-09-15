@@ -1,0 +1,203 @@
+\documentclass{hertieteaching}
+\usepackage{pifont}
+
+\title{Text as Data as Measurement}
+
+\begin{document}
+
+\maketitle
+
+% model structure choices
+% preprocessing
+% strategic considerations
+
+\begin{frame}{Last week}
+
+Last week we talked rather abstractly about models that connected the `message' $\theta$ and the words $W$ (or whatever features we decided to treat as exchangeable)
+
+Let's be a bit more specific
+
+\end{frame}
+
+
+\begin{frame}{Decisions, decisions}
+
+Are we modeling 
+\begin{itemize}
+  \item the generation process
+  \item the understanding process
+  \item or maybe both\ldots
+\end{itemize}
+
+\pause
+
+Por qué no los dos?
+\begin{align*}
+P(\theta) && \textit{Prior expectations}\\
+P(\{W\} \mid \theta) && \textit{Generation} \\
+P(\theta \mid \{W\}) & = \frac{P(\{W\} \mid \theta)P(\theta)}{\int P(\{W\} \mid \theta) P(\theta) d\theta} & \textit{Understanding}
+\end{align*}
+
+\end{frame}
+\begin{frame}{Decisions, decisions}
+Examples:
+
+Document classification: $\theta$ is the probability that this document is about social policy
+\begin{itemize}
+  \item Naive Bayes Classification, learn all the things
+  \item (Regularized) Logistic Regression, go straight for $P(\theta \mid \{W\})$ 
+\end{itemize}
+
+Thematic analysis: $\theta$ is the proportion of social policy mentions in the document
+\begin{itemize}
+  \item Topic Models, learn all the things
+  \item Content Analysis Dictionaries, assert $P(\{W\} \mid \theta)$ and go straight for $P(\theta \mid \{W\})$
+\end{itemize}
+
+We'll take a closer look at thematic analysis next week, so let's look at classification
+
+\end{frame}
+\begin{frame}{Document classification}
+
+Naive Bayes:
+
+Let $Z$ be one of \textit{two} possible document topics
+\begin{align*}
+P(\{W\} \mid Z) & = \prod^V P(W_v \mid Z) & \textit{The naive part}\\
+P(Z=1) & = \theta
+\end{align*}
+Now we see a 
+  
+\end{frame}
+
+\begin{frame}[t,fragile]\frametitle{Naive Bayes}
+
+Estimating the probability that a word profile $\{W\}_j$ occurs given that the document is liberal $P(\{W\}_j\mid Z=\text{`Lib'})$ is more challenging, because any one word profile is likely to occur only once.
+
+Assumption: words are assumed to be generated \textit{independently} given the category Z
+\begin{align*}
+P(\{W\}_j \mid Z=\text{`Lib'}) &~=~ {\prod}_i P(W_i \mid Z=\text{`Lib'})\\
+P( \text{`Affirmative Action'} \mid Z=\text{`Lib'}) &~=~ P( \text{`Affirmative'} \mid Z=\text{`Lib'}) \cdot\\
+& ~  P( \text{`Action'} \mid Z=\text{`Lib'})
+\end{align*}
+
+
+\end{frame}
+
+
+
+\begin{frame}[t,fragile]\frametitle{Naive Bayes}
+
+With this assumption, we can estimate the probability of observing a word $i$  given that the document is liberal: proportion of word $i$ in liberal training set.
+
+The classifier then chooses the class Z (Liberal or Conservative) with the highest aggregate probability.
+
+Note that every new word adds a bit of information that re-adjusts the conditional probabilities.
+
+\newpage
+
+
+\end{frame}
+\begin{frame}[t,fragile]\frametitle{Naive Bayes}
+
+
+
+Note that with two classes (here: liberal and conservative)  this has a rather neat interpretation:
+\begin{align*}
+\frac{P(Z=\text{\text{`Lib'}} \mid \{W\}_j)}
+{P(Z=\text{`Con'} \mid \{W\}_j)} = \\
+~~~~~~~~~\prod_i \frac{P(W_i \mid Z=\textsl{\text{`Lib'}})}
+{P(W_i \mid Z=\textsl{`Con'})}\times \frac{P(Z=\textsl{\text{`Lib'}})}{~P(Z=\textsl{`Con'})}
+\end{align*}
+Logging this probability ratio, every new word \textsl{adds} a bit of information that pushes the ratio above or below 0
+
+%%%%%%%%%%% check the below works in the real document
+
+%[will@Apparent lib]$ ykcats -dictionary ../../disc.vbpro ../lib/*
+%,Dictionary,Dictionary>discrimination,WordCount
+%6019_ll01-utf8.txt,26,26,20002
+%6020_ll01-utf8.txt,13,13,18722
+%[will@Apparent lib]$ ykcats -dictionary ../../disc.vbpro ../con/*
+%,Dictionary,Dictionary>discrimination,WordCount
+%6019_lc01-utf8.txt,70,70,17368
+%6020_lc01-utf8.txt,48,48,17698
+
+% lib = (26+13)/(20002+18722) = 0.001007127
+% con = (70+48)/(17368+17698) = 0.003365083
+% lib / con = .299
+
+%%%%%%%%%%%
+
+\end{frame}
+\begin{frame}[t,fragile]\frametitle{Naive Bayes}
+
+Example: Naive Bayes with only word class `discriminat*'.
+{\small
+\begin{align*}
+P(W=\text{`discriminat*'} \mid Z=\text{`Lib'}) & = (26+13)/(20002+18722) \approx 0.001\\
+P(W=\text{`discriminat*'} \mid Z=\text{`Con'}) & = (70+48)/(17368+17698) \approx 0.003
+\end{align*}
+}
+Assume that liberal and conservative supporting briefs are equally likely (true in the training set)
+\begin{align*}
+\frac{P(Z=\text{\text{`Lib'}})}{P(Z=\text{`Con'})} & = 1
+\end{align*}
+
+Last step:  calculate posterior classification  probabilities for a new document (based on occurrence of this word).
+
+\end{frame}
+\begin{frame}[t,fragile]\frametitle{Naive Bayes}
+
+%(File 6019\_al18-utf8.txt)
+Amicus brief from `King County Bar Association' containing 3667 words and 4 matches to disciminat*.
+
+{\scriptsize
+\begin{verbatim}
+that "the state shall not [discriminate] against, or grant preferential treatment
+the lingering effects of racial [discrimination] against minority groups in this
+remedy the effects of societal [discrimination]. Another four Justices (Stevens
+that "the state shall not [discriminate] against, or grant preferential treatment
+\end{verbatim}
+}
+\end{frame}
+
+
+\begin{frame}[t,fragile]\frametitle{Naive Bayes}
+A priori, the probabilities are\ldots
+
+Probability that we observe the word  discriminat* 4 out of 3667 times if the document is liberal:
+{\small
+\begin{verbatim}
+> dbinom(4, size=3667, prob=0.001007127)
+[1] 0.1930602
+\end{verbatim}
+}
+Probability that we observe the word  discriminat* 4 out of 3667 times if the document is conservative:
+{\small
+\begin{verbatim}
+> dbinom(4, size=3667, prob=0.003365083)
+[1] 0.004188261
+\end{verbatim}
+}
+Logged probability ratio = 3.83
+\newpage
+\end{frame}
+
+
+\begin{frame}[t,fragile]\frametitle{Naive Bayes}
+
+Conclusion: Seeing 4 instances of discriminat* gives the posterior classification probabilities
+\begin{itemize}
+\item $\theta_\text{liberal} = \frac{0.193}{0.193+0.004}$ = 0.979
+\item $\theta_\text{conservative}$ =  1-0.979=0.021
+\end{itemize}
+
+This is \textit{quite} confident
+\begin{itemize}
+\item \ldots but other words will be less loaded or push the other way
+\end{itemize}
+\end{frame}
+
+
+
+\end{document}
