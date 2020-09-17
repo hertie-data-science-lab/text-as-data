@@ -5,9 +5,17 @@
 
 \begin{document}
 
-\maketitle
 
-\begin{frame}{Text as data: The approach}
+{\setbeamertemplate{navigation symbols}{} 
+\begin{frame}
+\titlepage
+\end{frame}
+} %this removes the footline from title page
+\addtocounter{page}{-1}
+
+
+\begin{frame}
+\frametitle{Text as data: The approach}
 
 <<r, include = FALSE>>=
 # source("week-01.R")
@@ -413,14 +421,14 @@ Note: this is randomness \textit{conditional on the institution}
 
 \end{frame}
 
-\begin{frame}{}
-
+{\setbeamertemplate{navigation symbols}{}
+\begin{frame}
 \vfill
 \vspace{10ex}
-\centerline{\Huge\Pisymbol{MinionPro-Extra}{121}}
+\centerline{\Huge\color{gray}\decorativeflower}
 \vfill
-
 \end{frame}
+}
 
 \begin{frame}{Words as data}
 
@@ -790,14 +798,15 @@ For each research problem involving content analysis we need to ask:
 
 \end{frame}
 
-\begin{frame}{}
 
-\vfill
-\vspace{10ex}
-\centerline{\Huge\Pisymbol{MinionPro-Extra}{121}}
-\vfill
-
-\end{frame}
+{\setbeamertemplate{navigation symbols}{}
+    \begin{frame}{}
+      \vfill
+      \vspace{10ex}
+      \centerline{\color{gray}\Huge\decorativeflower}
+      \vfill
+    \end{frame}
+}
 
 \begin{frame}{Exchangeability and the `bag of words'}
 

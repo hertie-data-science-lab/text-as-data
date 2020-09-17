@@ -24,7 +24,9 @@ to most TADA analyses, so we should know what we are doing.
 
 ## Readings
 
-- Spirling and Denny on preprocessing
+- [Regular expressions](https://regex101.com/) for fun and profit (test them here)
+
+- Spirling and Denny on [preprocessing](https://www.cambridge.org/core/journals/political-analysis/article/text-preprocessing-for-unsupervised-learning-why-it-matters-when-it-misleads-and-what-to-do-about-it/AA7D4DE0AA6AB208502515AE3EC6989E)
 
 ## Assignment
 
