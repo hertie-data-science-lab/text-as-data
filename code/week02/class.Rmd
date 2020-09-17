@@ -1,0 +1,108 @@
+---
+title: "Text as data: Week 2"
+author: "Will Lowe"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    fig_width: 7
+    fig_height: 7 
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = NA)
+library(tidyverse)
+```
+
+## Let's start with those manifestos from last week
+
+
+```{r}
+library(quanteda)
+library(dplyr) # for easier data frame manipulation 
+library(readtext) # for getting document and their info into a data frame 
+```
+
+```{r}
+manif_path <- "texts/uk-election-manifestos/"
+manifestos <- readtext(manif_path)
+docinfo <- c("country", "national", "year", "language", "party")
+manifestos <- readtext(manif_path,
+                       docvarsfrom = "filenames",
+                       docvarnames = docinfo)
+```
+
+```{r}
+manifestos <- select(manifestos, 
+                     doc_id, text, year, party) 
+manifestos
+```
+
+The next step is to get this into a `corpus`.
+```{r}
+manif_corp <- corpus(manifestos) 
+manif_corp
+```
+
+
+
+## Comparing frequencies
+
+If we are interested in comparing the usage of groups of speakers, 
+we can use the `textstat_frequency` function. 
+There are a lot of `textstat_` functions, e.g. 
+```
+select dist simil entropy frequency keyness lexdiv readability
+```
+
+Here we'll examine what 
+sorts of words eventual yes and no voters used
+```{r}
+corpdfm_yesno <- dfm_subset(corpdfm, vote != "abs")
+
+textstat_frequency(corpdfm_yesno, 
+                   n = 20, groups = "vote")
+```
+as is often the case, raw counts are not so informative, so 
+we can instead ask for terms which differ statistically across 
+yes and no voters in a more statistical fashion
+```{r}
+dfm_yesno <- dfm_group(corpdfm_yesno, "vote")
+
+no_terms <- textstat_keyness(dfm_yesno, "no")
+head(no_terms, 25)
+yes_terms <-  textstat_keyness(dfm_yesno, "yes")
+head(yes_terms, 25)
+```
+where we had to collapse the dfm over vote first, so we 
+could specify that the "yes" ("no") voters were the 'target' 
+category.
+
+If we had been interested in the personal linguistic 
+style of one of our speakers, we would not have had to 
+group the dfm. For example, here are terms preferentially 
+used by Mr. Norman St John-Stevas
+```{r}
+nsjs_terms <- textstat_keyness(corpdfm, "Mr Norman St John-Stevas")
+head(nsjs_terms, 10)
+```
+
+We can also use `corpdfm_yesno` to see to what extent the 
+Speaker's promise to give equal time to both sides of the debate
+was fulfilled.
+
+It's hard to know whether the debate was persuasive since we do not know the speakers prior beliefs (though we could find out from their previous debates) so let us assume that there was no substantial persuasion and we'll assume that no speaker spoke particularly slowly.  
+These imply that we can proxy speaking time with number of words said, 
+and side with final vote.
+
+```{r}
+ntoken(dfm_yesno) # words on each side
+table(docvars(corpdfm, "vote")) # speakers on each side
+```
+Although three quarters of the speakers voted "yes", it seems that floor time was about two to one "yes" to "no" voters.
+
+
+
+<!-- load(url("http://varianceexplained.org/files/trump_tweets_df.rda")) -->
+<!-- trump_tweets_df %>% extract(statusSource, into = "phone", regex = "Twitter for ([a-zA-Z]+)") %>% select(text, phone, created) %>% corpus %>% corpus_subset(phone != "iPad") %>% tokens(remove_url = TRUE, remove_twitter = TRUE, remove_punct = TRUE, remove_numbers = TRUE) %>% dfm(group = "phone", remove = stopwords()) %>% dfm_subset(fff, ntoken(fff) > 0) -> fff -->
+<!-- ff %>% textstat_keyness(2) %>% head(20) -->
+<!-- ff %>% stm -->
