@@ -12,7 +12,28 @@
 % preprocessing
 % strategic considerations
 
-\begin{frame}{Classical content analysis}
+\begin{frame}{Plan}
+	
+
+Dictionary based content analysis
+
+The underlying measurement model
+
+How to read a dictionary
+
+Using the output
+
+How to do it
+
+How not to do it
+
+Measurement error and its consequences
+	
+\end{frame}
+
+
+
+\begin{frame}{Classical dictionary content analysis}
 
 \emph{Content} is, or is constructed from, \emph{categories} e.g.
 
@@ -57,39 +78,26 @@ We are typically interested in them for
 \end{frame}
 
 \begin{frame}{Talking like a terrorist}
-\protect\hypertarget{talking-like-a-terrorist}{}
 
-\begin{figure}
+\centerline{\includegraphics[width=0.6\linewidth]{pictures/binladen}} 
 
-{\centering \includegraphics[width=0.9\linewidth]{pictures/binladen} 
-
-}
-
-\caption{(Pennebaker and Chung, 2008)}\label{fig:unnamed-chunk-4}
-\end{figure}
+\centerline{From \textcite{Pennebaker.Chung2008}}
 
 \end{frame}
 
+\begin{frame}{Talking to police}
 
-\begin{frame}{Talking about drugs}
 
+\centerline{\includegraphics[width=0.7\linewidth]{pictures/respect.jpg}} 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{pictures/drugs} 
-
-}
-
-\caption{Congressional Bills Project website (retrieved 2010)}\label{fig:unnamed-chunk-6}
-\end{figure}
+\medskip
+\centerline{From \textcite{Voigt.etal2017}}
 
 \end{frame}
 
 \begin{frame}{Classical content analysis}
-\protect\hypertarget{classical-content-analysis-1}{}
 
 Categories are
-
 \begin{itemize}
 \item
   equivalence classes over words\item
@@ -108,13 +116,23 @@ Categories are
 
 \begin{center}
 \begin{tikzpicture}
-\node(beta) at (0.5, 1) [lat,label=left:$B$]{};
 \node(W) at (1.5,0)  [var,label=below:$W$]{};
+\pause
 \node(Z) at (3,0)  [lat,label=below:$Z$]{};
-\node(theta) at (4,1)  [lat,label=right:$\theta$]{};
-\draw(beta) -- (W);
 \draw(Z) -- (W);
+\pause
+\draw[gray](1,-0.75) rectangle (3.75,0.5){};
+\node[gray] at (4,-0.6){\small N};
+\pause
+\node(theta) at (4,1)  [lat,label=right:$\theta$]{};
 \draw(theta) -- (Z);
+\pause
+\node(beta) at (-0.25, 0) [lat,label=below:$B$]{};
+\draw(beta) -- (W);
+\pause
+\draw(-0.75,-0.75) rectangle (0.5,0.5)[gray];
+\node(labk) at (-0.95,-0.6)  []{{\color{gray}\small K}};
+
 \end{tikzpicture}
 \end{center}
 
@@ -122,81 +140,82 @@ Categories are
 \column{0.45\textwidth}
 
 $W_i$ is the $i$-th word in the document
+\medskip
 
 $Z_i$ is true topic of $W_i$
+\medskip
 
 $\theta_k = P(Z = k)$ in this document
+\medskip
 
-$B_k$ is the distribution $P(W \mid Z = k)$ 
+$\beta_k$ in $B$ is the distribution $P(W \mid Z = k)$ 
 
 \end{columns}
 
-\bigskip
-Now let's claim we \textit{know} some things
+\end{frame}
 
-\begin{columns}[T,onlytextwidth]
-\column{0.5\textwidth}
+
+\begin{frame}{Topics}
 
 \begin{center}
 \begin{tikzpicture}
-\draw(-1,-0.75) rectangle (0.75,1)[gray];
-\draw(1,-0.75) rectangle (3.5,0.5)[gray];
-
-\node(beta) at (0, 0) [var,label=left:$B$]{};
 \node(W) at (1.5,0)  [var,label=below:$W$]{};
 \node(Z) at (3,0)  [lat,label=below:$Z$]{};
-\node(theta) at (4,1)  [lat,label=right:$\theta$]{};
-\draw(beta) -- (W);
 \draw(Z) -- (W);
+\draw[gray](1,-0.75) rectangle (3.75,0.5){};
+\node[gray] at (4,-0.6){\small N};
+\node(theta) at (4,1)  [lat,label=right:$\theta$]{};
 \draw(theta) -- (Z);
+\node(beta) at (-0.25, 0) [var,label=below:$B$]{};
+\draw(beta) -- (W);
+\draw(-0.75,-0.75) rectangle (0.5,0.5)[gray];
+\node(labk) at (-0.95,-0.6)  []{{\color{gray}\small K}};
+
 \end{tikzpicture}
 \end{center}
 
 
-\column{0.05\textwidth}
-\column{0.45\textwidth}
-\end{columns}
+$B$ is a `dictionary' that explains how often each word should be generated in each of the $K$ topics
+\begin{itemize}
+  \item An entry in the dictionary $B$ is a vector of word generation probabilities $\beta_k$ 
+\end{itemize}
+This week we will assume we \textit{know} $B$
 
-
-
-
-\end{frame}
-
-\begin{frame}{Content analysis dictionary}
-\protect\hypertarget{content-analysis-dictionary}{}
-
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\begin{minipage}[b]{0.21\columnwidth}\raggedright
-ECONOMY\strut
-\end{minipage} & \begin{minipage}[b]{0.24\columnwidth}\raggedright
-\strut
-\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.21\columnwidth}\raggedright
-\textbf{state reg} accommodation age ambulance assist benefit
-\ldots{}\strut
-\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
-\textbf{market econ} assets bid choice* compet* constrain*
-\ldots{}\strut
-\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
-
-from Laver and Garry's (2000) dictionary
+\pause
+Strictly speaking we will assume that we know enough about its \textit{inverse} $W \longrightarrow Z$ to say
+\begin{itemize}
+  \item for each word $W$, what its $Z$ is.
+\end{itemize}
 
 \end{frame}
 
-\begin{frame}{As a posterior: \(P(Z \mid W)\)}
-\protect\hypertarget{as-a-posterior-pz-mid-w}{}
+\begin{frame}{Dictionary B}
+
+Here's a excerpt from the Economy section of the dictionary in \textcite{Laver.Garry2000}
+
+\medskip
+\begin{center}
+\begin{tabular}{ll} \toprule
+  \textbf{state reg}     & \textbf{market econ} \\ \midrule
+          accommodation  & assets\\
+          age            & bid\\
+          ambulance      & choice*\\
+          assist         & compet*\\
+          benefit        & constrain*\\
+          \ldots         & \ldots 
+\end{tabular}
+\end{center}
+
+\end{frame}
+
+\begin{frame}{How to read it}
 
 Dictionary is an explicit and very \emph{certain} statement of
-\(P(Z \mid W)\)
+$P(Z \mid W)$
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule
-W & P(Z = state reg \textbar{} W) & P(Z = market econ \textbar{}
+W & P(Z = `state reg' \textbar{} W) & P(Z = `market econ' \textbar{}
 W)\tabularnewline
 \midrule
 \endhead
@@ -211,13 +230,33 @@ bid & 0 & 1\tabularnewline
 
 \end{frame}
 
-\begin{frame}{\ldots from a underspecified likelihood}
-\protect\hypertarget{from-a-underspecified-likelihood}{}
+\begin{frame}{If we're so sure about $Z$\ldots}
+
+Then estimating the proportion $Z=k$ in a document is easy.
+
+First count up all the `hits', where $Z=k$
+$$
+Z_k ~=~ \sum^N_{i} P(Z = k \mid W_i)
+$$
+then divide by the sum
+$$
+\hat{\theta}_k ~=~ \frac{Z_k}{\sum^K_{j} Z_j}
+$$
+and that's our estimate of the document content
+\end{frame}
+
+\begin{frame}{Discrimination}
+
+Stating $P(Z \mid W)$ is the \textit{discrimination} direction from last week
+\begin{itemize}
+  \item we didn't even learn it from data, we just asserted it!
+\end{itemize}
+
+So what must the generation process have looked like? 
+\pause
 
 The \emph{only} way this could be true is if the data had been generated
 like
-
-\(P(W \mid Z)\)
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule
@@ -231,50 +270,27 @@ P(W = ``benefit'' \textbar{} Z) & b & \textbf{0}\tabularnewline
 P(W = ``assets'' \textbar{} Z) & \textbf{0} & c\tabularnewline
 P(W = ``bid'' \textbar{} Z) & \textbf{0} & d\tabularnewline
 \ldots{} & \ldots{} & \ldots{}\tabularnewline
-\bottomrule
+%\bottomrule
 \end{longtable}
 
-\end{frame}
-
-\begin{frame}{\ldots leading to a posterior over content}
-\protect\hypertarget{leading-to-a-posterior-over-content}{}
-
-Define the category \emph{counts} \[
-Z_k = \sum^N_{i} P(Z = k \mid W_i)
-\] and estimate category posterior probabilities, a.k.a. relative
-\emph{proportions} using
-
-\[
-\hat{\theta}_k = \frac{Z_k}{\sum^K_{j} Z_j}
-\]
-
-\pause
-
-When \(\theta\) is a set of multinomial parameters, \emph{and the model
-assumptions are correct}, this could be a reasonable estimator.
+for arbitrary probabilities $a,b,c,d$. The real information in this dictionary is which words \textit{cannot} be generated by a topic
 
 \end{frame}
 
 \begin{frame}{Reconstruction}
-\protect\hypertarget{reconstruction}{}
 
-Dictionary-based content analysis was \emph{not} developed this way
-
+Why do we seem to be going about this backwards?
 \begin{itemize}
-\item
-  Originally (e.g.~{\textbf{???}}) there was no probability model
+  \item Because we are reconstructing old practice as a measurement process
+  \item which allows us to learn from data things we previously only asserted
+  \item and understand exactly where and when things go wrong
 \end{itemize}
 
-\pause
-
-We are reconstructing it to compare and contrast with topic models which
-make the \emph{same} structural assumptions but operate in exploratory,
-not confirmatory mode
+But let's see how to work with the \textit{output} of the process before looking into its quirks
 
 \end{frame}
 
-\begin{frame}{Connecting CCA content to politics}
-\protect\hypertarget{connecting-cca-content-to-politics}{}
+\begin{frame}{Connecting content to politics}
 
 We're usually interested in category proportions per unit (usually
 document), e.g.
@@ -290,7 +306,7 @@ document), e.g.
 
 \end{frame}
 
-\begin{frame}{Inference About content}
+\begin{frame}{Inference about content}
 \protect\hypertarget{inference-about-content}{}
 
 Statistically speaking, we are just dealing with proportions of various
@@ -457,12 +473,12 @@ It's often more useful to work with log ratios \[
 
 \end{frame}
 
-\begin{frame}{Log ratios as forensics}
+\begin{frame}{Log ratios as forensics (Robinson 2016)}
 \protect\hypertarget{log-ratios-as-forensics}{}
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{pictures/trumptweets} 
+{\centering \includegraphics[width=0.6\linewidth]{pictures/trumptweets} 
 
 }
 
@@ -471,12 +487,12 @@ It's often more useful to work with log ratios \[
 
 \end{frame}
 
-\begin{frame}{Log ratios of words: keyness}
+\begin{frame}{Log ratios of words: (Monroe et al. 2008)}
 \protect\hypertarget{log-ratios-of-words-keyness}{}
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{pictures/fightin1} 
+{\centering \includegraphics[width=0.6\linewidth]{pictures/fightin1} 
 
 }
 
@@ -485,184 +501,156 @@ It's often more useful to work with log ratios \[
 
 \end{frame}
 
-\begin{frame}{Ratios, ratios everywhere}
-\protect\hypertarget{ratios-ratios-everywhere}{}
+%\begin{frame}{Ratios, ratios everywhere}
+%\protect\hypertarget{ratios-ratios-everywhere}{}
+%
+%\begin{longtable}[]{@{}lll@{}}
+%\toprule
+%party & \emph{state reg} & \emph{market econ}\tabularnewline
+%\midrule
+%\endhead
+%Conservative & 320 & 643\tabularnewline
+%Labour & 396 & 268\tabularnewline
+%\bottomrule
+%\end{longtable}
+%
+%Looking forward a little, there are two separate sorts of information in
+%tables like these
+%
+%Marginal information:
+%
+%\begin{itemize}
+%\item
+%  e.g.~state regulation is mentioned 320+396=716 times, and market
+%  economy 643+268=911 times.
+%\end{itemize}
+%
+%\end{frame}
 
-\begin{longtable}[]{@{}lll@{}}
-\toprule
-party & \emph{state reg} & \emph{market econ}\tabularnewline
-\midrule
-\endhead
-Conservative & 320 & 643\tabularnewline
-Labour & 396 & 268\tabularnewline
-\bottomrule
-\end{longtable}
-
-Looking forward a little, there are two separate sorts of information in
-tables like these
-
-Marginal information:
-
-\begin{itemize}
-\item
-  e.g.~state regulation is mentioned 320+396=716 times, and market
-  economy 643+268=911 times.
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}{Ratios, ratios everywhere}
-\protect\hypertarget{ratios-ratios-everywhere-1}{}
-
-\begin{longtable}[]{@{}lll@{}}
-\toprule
-party & \emph{state reg} & \emph{market econ}\tabularnewline
-\midrule
-\endhead
-Conservative & 320 & 643\tabularnewline
-Labour & 396 & 268\tabularnewline
-\bottomrule
-\end{longtable}
-
-Association information:
-
-\begin{itemize}
-\item
-  conservatives mention state regulation 320/643 = about 50\% as much as
-  market economy\item
-  labour mentions it 396/268 = about 50\% more than market economy.
-\end{itemize}
-
-So the odds ratio (0.5 / 1.5) = about 0.33.
-
-This, plus the marginal information, \emph{completely characterizes}
-this table.
-
-\end{frame}
-
-\begin{frame}{A psychological aside}
-\protect\hypertarget{a-psychological-aside}{}
-
-Are people \emph{really} sensitive to these sorts of associational
-statistics?
-
-\pause
-
-It seems they are:
-
-\begin{itemize}
-\item
-  Even infants track conditional probabilities ({\textbf{???}})\item
-  Purely statistical textual measures recover Implicit Association Test
-  biases ({\textbf{???}})
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}{Word embeddings}
-\protect\hypertarget{word-embeddings}{}
-
-Contextual similarity tracks real relations (as it must!)
-
-\begin{center}\includegraphics[width=0.9\linewidth]{pictures/cbn-jobs} \end{center}
-
-\end{frame}
+%\begin{frame}{Ratios, ratios everywhere}
+%\protect\hypertarget{ratios-ratios-everywhere-1}{}
+%
+%\begin{longtable}[]{@{}lll@{}}
+%\toprule
+%party & \emph{state reg} & \emph{market econ}\tabularnewline
+%\midrule
+%\endhead
+%Conservative & 320 & 643\tabularnewline
+%Labour & 396 & 268\tabularnewline
+%\bottomrule
+%\end{longtable}
+%
+%Association information:
+%
+%\begin{itemize}
+%\item
+%  conservatives mention state regulation 320/643 = about 50\% as much as
+%  market economy\item
+%  labour mentions it 396/268 = about 50\% more than market economy.
+%\end{itemize}
+%
+%So the odds ratio (0.5 / 1.5) = about 0.33.
+%
+%This, plus the marginal information, \emph{completely characterizes}
+%this table.
+%
+%\end{frame}
+%
+%\begin{frame}{A psychological aside}
+%\protect\hypertarget{a-psychological-aside}{}
+%
+%Are people \emph{really} sensitive to these sorts of associational
+%statistics?
+%
+%\pause
+%
+%It seems they are:
+%
+%\begin{itemize}
+%\item
+%  Even infants track conditional probabilities ({\textbf{???}})\item
+%  Purely statistical textual measures recover Implicit Association Test
+%  biases ({\textbf{???}})
+%\end{itemize}
+%
+%\end{frame}
+%
+%\begin{frame}{Word embeddings}
+%\protect\hypertarget{word-embeddings}{}
+%
+%Contextual similarity tracks real relations (as it must!)
+%
+%\begin{center}\includegraphics[width=0.9\linewidth]{pictures/cbn-jobs} \end{center}
+%
+%\end{frame}
 
 \begin{frame}{Category count as a dependent variable}
 \protect\hypertarget{category-count-as-a-dependent-variable}{}
 
-\begin{figure}
+\centerline{\includegraphics[width=0.5\linewidth]{pictures/indep-ref} }
 
-{\centering \includegraphics[width=0.8\linewidth]{pictures/indep-ref} 
+From \textcite{Sullivan.Lowe2010}
 
-}
-
-\caption{Sullivan and Lowe (2010)}\label{fig:unnamed-chunk-12}
-\end{figure}
 
 \end{frame}
 
 \begin{frame}{Category counts as a dependent variable}
-\protect\hypertarget{category-counts-as-a-dependent-variable}{}
 
 District vs party focus in speeches
-
-\begin{figure}
 
 {\centering \includegraphics[width=0.9\linewidth]{pictures/district-party-focus} 
 
 }
+From Kellerman and Proksch, MS
 
-\caption{(Kellerman and Proksch, MS)}\label{fig:unnamed-chunk-13}
-\end{figure}
-
-Data: {[}district words, party words{]}
+%Data: {[}district words, party words{]}
 
 \end{frame}
 
-\begin{frame}{Category counts as a dependent variable}
-\protect\hypertarget{category-counts-as-a-dependent-variable-1}{}
-
-Logit reminder:
-
-\begin{itemize}
-\item
-  when you are modeling two category counts as a function of covariates
-  the linear predictor is a smoothed version of their log ratio
-\end{itemize}
-
-\[
-\begin{aligned}
-\text{district words, party words} & \sim Multinomial(\pi^\text{district}_, N_i)\\ 
-\text{log}\frac{\pi^\text{district}_i}{(1 - \pi^\text{district}_i}) & = \text{log}\frac{\pi^\text{district}_i}{\pi^\text{party}_i} ~=~ \ldots 
-\end{aligned}
-\]
-
-\end{frame}
+%\begin{frame}{Category counts as a dependent variable}
+%\protect\hypertarget{category-counts-as-a-dependent-variable-1}{}
+%
+%Logit reminder:
+%
+%\begin{itemize}
+%\item
+%  when you are modeling two category counts as a function of covariates
+%  the linear predictor is a smoothed version of their log ratio
+%\end{itemize}
+%
+%\[
+%\begin{aligned}
+%\text{[dist, party]} & \sim \text{Binomial}(\pi^\text{dist}_, N_i)\\ 
+%\text{log}\frac{\pi^\text{dist}_i}{(1 - \pi^\text{dist}_i)} & = \text{log}\frac{\pi^\text{dist}_i}{\pi^\text{party}_i} ~=~ \ldots 
+%\end{aligned}
+%\]
+%
+%\end{frame}
 
 \begin{frame}{OK, how do I make such a dictionary?}
-\protect\hypertarget{ok-how-do-i-make-such-a-dictionary}{}
 
 Find a suitable tool
+\begin{itemize}
+  \item \href{http://provalisresearch.com/products/content-analysis-software/}{Wordstat}
+  \item \href{http://liwc.wpengine.com/}{LIWC} (maybe don't)
+  \item \href{http://apb.newmdsx.com/hamlet2.html}{Hamlet}
+  \item \href{http://atlasti.com/}{Atlas-ti} (?)
+  \item \href{https://github.com/conjugateprior/yoshikoder/releases/tag/v0.6.5}{Yoshikoder}
+\end{itemize}
 
+\pause
+
+Then assign words to
 \begin{itemize}
 \item
-  Maximise measurement validity\item
-  Minimise \emph{measurement error}
+  maximise measurement validity
+  \item
+  minimise \emph{measurement error}
 \end{itemize}
 
 \pause
 
 (Sell high, buy low)
-
-\end{frame}
-
-\begin{frame}{Find a suitable tool}
-\protect\hypertarget{find-a-suitable-tool}{}
-
-\href{http://provalisresearch.com/products/content-analysis-software/}{Wordstat}
-
-\href{http://liwc.wpengine.com/}{LIWC} (maybe don't)
-
-\href{http://apb.newmdsx.com/hamlet2.html}{Hamlet}
-
-\href{http://atlasti.com/}{Atlas-ti} (?)
-
-\href{https://github.com/conjugateprior/yoshikoder/releases/tag/v0.6.5}{Yoshikoder}
-
-\end{frame}
-
-\begin{frame}{What's to go wrong?}
-\protect\hypertarget{whats-to-go-wrong}{}
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.8\linewidth]{pictures/wickeroth-strategie-der-steine-3-2007} 
-
-}
-
-\caption{(Wickroth, 2007)}\label{fig:unnamed-chunk-14}
-\end{figure}
 
 \end{frame}
 
@@ -720,8 +708,8 @@ Assume
 \item
   a vocabulary of only two words `benefit' and `assets'\item
   a \emph{subtractive} measure of position (Laver and Garry): \[
-  \frac{Z_\text{market econ} - Z_{state reg}}
-       {Z_\text{market econ} + Z_{state reg}}
+  \frac{Z_\text{market econ} - Z_\text{state reg}}
+       {Z_\text{market econ} + Z_\text{state reg}}
   \]
 \end{itemize}
 
@@ -759,9 +747,7 @@ total & 1 & 1\tabularnewline
 then \[
 P(W=\text{"asset"} |\mid Z=\text{state reg}) > 0
 \]
-
 so, e.g.
-
 \[
 P(Z=\text{state reg} \mid W=\text{"asset"}) < 1
 \]
@@ -802,17 +788,14 @@ Under \emph{imperfect} measurement we expect
   14 `assets' (8 from \emph{market econ} but 6 from \emph{state reg})
 \end{itemize}
 
-\end{frame}
-
-\begin{frame}{Measurement error: example}
-\protect\hypertarget{measurement-error-example-4}{}
-
 The proportional difference measure is now \[
 \frac{(14-16)}{(14+16)} = -0.07
 \]
 
 Apparently much closer to the centre, but only because of measurement
 error
+
+\pause
 
 \emph{All} relative measures will have this problem (and all kinds of
 text analyzers)
@@ -822,139 +805,133 @@ text analyzers)
 \begin{frame}{In action (Laver and Garry 2000)}
 \protect\hypertarget{in-action-laver-and-garry-2000}{}
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{pictures/lg-shrinkage} 
+{\centering \includegraphics[width=0.4\linewidth]{pictures/lg-shrinkage} 
 
 }
-
-\caption{(Laver and Garry, 2000)}\label{fig:unnamed-chunk-15}
-\end{figure}
 
 \end{frame}
 
 \begin{frame}{In action with people, not dictionaries}
-\protect\hypertarget{in-action-with-people-not-dictionaries}{}
 
 \begin{center}\includegraphics[width=0.8\linewidth]{pictures/slava-rile3} \end{center}
 
-\end{frame}
-
-\begin{frame}{Attenuation (Mikhaylov et al.~2011)}
-\protect\hypertarget{attenuation-mikhaylov-et-al.-2011}{}
-
-\begin{center}\includegraphics[width=16.39in,height=0.8\textheight]{pictures/slava-rile} \end{center}
+From \textcite{Mikhaylov.etal2011}
 
 \end{frame}
 
-\begin{frame}{Solutions: Some theological approaches}
-\protect\hypertarget{solutions-some-theological-approaches}{}
+\begin{frame}{So what to do now?}
 
-\pause
+That's for next week\ldots
 
-\begin{figure}
-
-{\centering \includegraphics[width=7.29in,height=0.8\textheight]{pictures/praying-skeleton} 
-
-}
-
-\caption{Thoughts and Prayers}\label{fig:unnamed-chunk-18}
-\end{figure}
 
 \end{frame}
-
-\begin{frame}{Solutions: Do not sin in the first place}
-\protect\hypertarget{solutions-do-not-sin-in-the-first-place}{}
-
-``Beatings will continue until morale improves''
-
-\pause
-
-An often non-obvious fact about content dictionaries:
-
-\begin{itemize}
-\item
-  \emph{precision}: proportion of words used the way your dictionary
-  assumes\item
-  \emph{recall}: proportion of words used that way that are in your
-  dictionary
-\end{itemize}
-
-\emph{always} trade-off\ldots{}
-
-\end{frame}
-
-\begin{frame}{Sins of ommission vs sins of commission}
-\protect\hypertarget{sins-of-ommission-vs-sins-of-commission}{}
-
-Every field reinvents this distinction:
-
-\begin{itemize}
-\item
-  precision and recall\item
-  specificity and sensitivity\item
-  users and producer's accuracy\item
-  type 1 and type 2 error
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}{Humility and self-examination}
-\protect\hypertarget{humility-and-self-examination}{}
-
-Keyword in context analyses (KWIC) allow you to scan all contexts of a
-word
-
-\begin{itemize}
-\item
-  How many of them are the sense or usage you want?
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}{KWIC: \texttt{benefit*}}
-\protect\hypertarget{kwic-benefit}{}
-
-\tiny
-\begin{table}[ht]
-\centering
-\begin{tabular}{rlll}
-  \hline
- & pre & keyword & post \\ 
-  \hline
-1 & also keep all the other & benefits & that pensioners currently receive , \\ 
-  2 & regulation will have to have & benefits & exceeding costs , and regulations \\ 
-  3 & and Controlled Immigration Britain has & benefited & from immigration . We all \\ 
-  4 & positive contribution But if those & benefits & are to continue to flow \\ 
-  5 & Nor ther n Ireland brings & benefits & to all parts of our \\ 
-  6 & their home , will also & benefit & first-time buyers . Empowering individuals \\ 
-  7 & you help yourself ; you & benefit & and the country benefits . \\ 
-  8 & you benefit and the country & benefits & . So now , I \\ 
-  9 & result of our tax and & benefit & measures compared to 1997 . \\ 
-  10 & result of personal tax and & benefit & measures introduced since 1997 , \\ 
-  11 & , the savings on unemployment & benefits & will go towards investing more \\ 
-  12 & trebled the number on incapacity & benefits & . We will help 17 \\ 
-  13 & Work programme and reform Incapacity & Benefit & , with the main elements \\ 
-  14 & main elements of the new & benefit & regime in place from 2008 \\ 
-  15 & stronger penalties . To the & benefit & of business and household consumers \\ 
-  16 & effective directive to provide real & benefits & to consumers and new opportunities \\ 
-  17 & better.We are examining the potential & benefits & of a parallel Expressway on \\ 
-  18 & ways to lock in the & benefit & of new capacity . We \\ 
-  19 & are determined to spread the & benefits & of enterprise to every community \\ 
-  20 & to get ahead , to & benefit & from improving public services , \\ 
-  21 & of the school workforce is & benefiting & staff and helping to tailor \\ 
-  22 & teachers and pupils get the & benefit & of the range of support \\ 
-   \hline
-\end{tabular}
-\end{table}
-\normalsize
-
-\end{frame}
-
-
-
-\begin{frame}{Last week}
-\end{frame}
+%\protect\hypertarget{solutions-some-theological-approaches}{}
+%
+%\pause
+%
+%\begin{figure}
+%
+%{\centering \includegraphics[width=7.29in,height=0.8\textheight]{pictures/praying-skeleton} 
+%
+%}
+%
+%\caption{Thoughts and Prayers}\label{fig:unnamed-chunk-18}
+%\end{figure}
+%
+%\end{frame}
+%
+%\begin{frame}{Solutions: Do not sin in the first place}
+%\protect\hypertarget{solutions-do-not-sin-in-the-first-place}{}
+%
+%``Beatings will continue until morale improves''
+%
+%\pause
+%
+%An often non-obvious fact about content dictionaries:
+%
+%\begin{itemize}
+%\item
+%  \emph{precision}: proportion of words used the way your dictionary
+%  assumes\item
+%  \emph{recall}: proportion of words used that way that are in your
+%  dictionary
+%\end{itemize}
+%
+%\emph{always} trade-off\ldots{}
+%
+%\end{frame}
+%
+%\begin{frame}{Sins of ommission vs sins of commission}
+%\protect\hypertarget{sins-of-ommission-vs-sins-of-commission}{}
+%
+%Every field reinvents this distinction:
+%
+%\begin{itemize}
+%\item
+%  precision and recall\item
+%  specificity and sensitivity\item
+%  users and producer's accuracy\item
+%  type 1 and type 2 error
+%\end{itemize}
+%
+%\end{frame}
+%
+%\begin{frame}{Humility and self-examination}
+%\protect\hypertarget{humility-and-self-examination}{}
+%
+%Keyword in context analyses (KWIC) allow you to scan all contexts of a
+%word
+%
+%\begin{itemize}
+%\item
+%  How many of them are the sense or usage you want?
+%\end{itemize}
+%
+%\end{frame}
+%
+%\begin{frame}{KWIC: \texttt{benefit*}}
+%\protect\hypertarget{kwic-benefit}{}
+%
+%\tiny
+%\begin{table}[ht]
+%\centering
+%\begin{tabular}{rlll}
+%  \hline
+% & pre & keyword & post \\ 
+%  \hline
+%1 & also keep all the other & benefits & that pensioners currently receive , \\ 
+%  2 & regulation will have to have & benefits & exceeding costs , and regulations \\ 
+%  3 & and Controlled Immigration Britain has & benefited & from immigration . We all \\ 
+%  4 & positive contribution But if those & benefits & are to continue to flow \\ 
+%  5 & Nor ther n Ireland brings & benefits & to all parts of our \\ 
+%  6 & their home , will also & benefit & first-time buyers . Empowering individuals \\ 
+%  7 & you help yourself ; you & benefit & and the country benefits . \\ 
+%  8 & you benefit and the country & benefits & . So now , I \\ 
+%  9 & result of our tax and & benefit & measures compared to 1997 . \\ 
+%  10 & result of personal tax and & benefit & measures introduced since 1997 , \\ 
+%  11 & , the savings on unemployment & benefits & will go towards investing more \\ 
+%  12 & trebled the number on incapacity & benefits & . We will help 17 \\ 
+%  13 & Work programme and reform Incapacity & Benefit & , with the main elements \\ 
+%  14 & main elements of the new & benefit & regime in place from 2008 \\ 
+%  15 & stronger penalties . To the & benefit & of business and household consumers \\ 
+%  16 & effective directive to provide real & benefits & to consumers and new opportunities \\ 
+%  17 & better.We are examining the potential & benefits & of a parallel Expressway on \\ 
+%  18 & ways to lock in the & benefit & of new capacity . We \\ 
+%  19 & are determined to spread the & benefits & of enterprise to every community \\ 
+%  20 & to get ahead , to & benefit & from improving public services , \\ 
+%  21 & of the school workforce is & benefiting & staff and helping to tailor \\ 
+%  22 & teachers and pupils get the & benefit & of the range of support \\ 
+%   \hline
+%\end{tabular}
+%\end{table}
+%\normalsize
+%
+%\end{frame}
+%
+%
+%
+%\begin{frame}{Last week}
+%\end{frame}
 
 \begin{frame}[allowframebreaks]
 \frametitle{References}
