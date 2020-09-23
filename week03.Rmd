@@ -25,6 +25,8 @@ analysis.
 
 [Dropbox link](https://www.dropbox.com/s/mey81y2ice07uuf/tada-week03.mov?dl=0)
 
+[slides](lectures/week03.pdf)
+
 [Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
 
 ## Readings
