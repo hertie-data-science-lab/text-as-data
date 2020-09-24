@@ -19,14 +19,9 @@ social science measurement strategies to deal with language.
 
 ## Lecture
 
-- [Lecture part 1](https://dl.conjugateprior.org/tada/tada-week1-1.mov)
-
-- [Lecture part 2](https://dl.conjugateprior.org/tada/tada-week1-2.mov)
-
-- [Lecture part 3](https://dl.conjugateprior.org/tada/tada-week1-3.mov)
-
-
 - [Link to streamable version on the moodle](https://moodle.hertie-school.org/course/view.php?id=2500) 
+
+- [slides](lectures/week01.pdf)
 
 ## Readings
 

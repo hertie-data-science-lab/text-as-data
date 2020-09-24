@@ -22,6 +22,8 @@ to most TADA analyses, so we should know what we are doing.
 
 [Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
 
+[slides](lectures/week02.pdf)
+
 ## Readings
 
 - [Regular expressions](https://regex101.com/) for fun and profit (test them here)
