@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+\usepackage[slides,lf]{MinionPro}
+\usepackage[margin=1in]{geometry}
+\usepackage{willtikz}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0em}
+\linespread{1.05}
+
+\begin{document}
+
+The standard content analysis / topic model each document is modelled as
+
+\begin{center}
+\begin{tikzpicture}
+\node(W) at (1.5,0)  [var,label=below:$W$]{};
+\node(Z) at (3,0)  [lat,label=below:$Z$]{};
+\draw(Z) -- (W);
+\draw[gray](1,-0.75) rectangle (3.75,0.5){};
+\node[gray] at (4,-0.6){\small N};
+\node(theta) at (4,1)  [lat,label=right:$\theta$]{};
+\draw(theta) -- (Z);
+\node(beta) at (-0.25, 0) [var,label=below:$B$]{};
+\draw(beta) -- (W);
+\draw(-0.75,-0.75) rectangle (0.5,0.5)[gray];
+\node(labk) at (-0.95,-0.6)  []{{\color{gray}\small K}};
+
+\end{tikzpicture}
+\end{center}
+where 
+$W_i$ is the $i$-th word of $N$ in the document,
+$Z_i$ is true topic of $W_i$,
+$\theta_k = P(Z = k)$ is the $k$-th  element of length $K$ $\theta$ in this document, and 
+$\beta_k$ is the $k$-th column of $B$ and is the distribution $P(W \mid Z = k)$.
+
+Let $v(i)$ be the index of the $i$-th word into the $V$ word vocabulary.
+
+In general
+\begin{align*}
+   P(Z_i \mid W_{i}) &~=~ \frac{P(W_i \mid Z_i=k) P(Z_i=k)}{\sum^K_k P(W_i \mid Z_i=k) P(Z_i=k)}\\
+    &~=~ \frac{\beta_{v(i),k} \theta_k}{\sum^K_k \beta_{v(i),k} \theta_k}
+\end{align*}
+However, if topics have exclusive but possibly not exhaustive vocabularies then 
+\begin{align*}
+\sum^K_k \beta_{v(i),k} \theta_k &~=~ \beta_{v(i),k} \theta_k  
+\end{align*}
+so if $\theta_k > 0, ~ \forall k$ then 
+\begin{align*}
+P(Z_i \mid W_{i}) &~=~ \mathbb{I}[\beta_{v(i),k} \neq 0]
+\end{align*}
+Measurement error is due to failure of this assumption. Because 
+the estimator of $\theta_k$ is
+\begin{align*}
+\hat{\theta}_k &~=~ \frac{\sum^N_i P(Z_i=k \mid W_{i})}{\sum^K_k \sum^N_i  P(Z_i = k \mid W_{i})}
+\end{align*}
+then each work contributes measurement error associated with each $k$-generated word is 
+\begin{align*}
+  e_i &~=~ 1 - \sum_{j\neq k} P(Z_i=j \mid W_{i})
+\end{align*}
+Under measurement error $e_i < 1$, so $\hat{\theta}_k < \theta_k$.
+
+A separate issue from measurement error is bias. At the document level this is 
+$$
+E_k = \hat{\theta}_k - \theta
+$$
+Note: we can increase error by putting words in the wrong category (measurement error), or by failing to put important words in any category (undercoverage)
+
+Are the precision and recall? Probably
+
+\end{document}
