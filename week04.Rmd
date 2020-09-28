@@ -27,7 +27,9 @@ element.
 
 ## Lecture
 
+[Link dropbox](https://www.dropbox.com/s/kglldz7357bifh0/tada-week04.mov?dl=0)
 
+[slides](lectures/slides04.pdf)
 
 [Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
 (not yet)
