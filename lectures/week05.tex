@@ -10,6 +10,18 @@
 
 \begin{frame}{Plan}
 
+\begin{itemize}
+  \item Geometry
+  \item Topic models, the very idea
+  \item Latent Dirichlet Allocation
+  \item Dirichlet distributions for beginners
+  \item Training and output
+  \item Interpretation
+  \item Explaining topic prevalence
+  \item The Structural Topic Model
+\end{itemize}
+
+
 \end{frame}
 
 \begin{frame}{Word geometry}
@@ -87,7 +99,7 @@ We'll look at the oldest and simplest way to answer these questions
 
 \end{frame}
 
-\begin{frame}{Dictionaries vs lda}
+\begin{frame}{Dictionaries vs topic models}
 
 \begin{columns}[T,onlytextwidth]
 \column{0.5\textwidth}
@@ -142,7 +154,7 @@ We \textit{don't} know the dictionary
 \end{columns}
 
 \end{frame}
-\begin{frame}{LDA}
+\begin{frame}{Latent Dirichlet Allocation}
 
 We \textit{don't} know the dictionary, but 
 we do have \textit{prior expectations}
@@ -239,7 +251,7 @@ $\alpha = [0.1, 0.1, 0.1]$
 
 \begin{frame}{Why Dirichlet?}
 
-Because Multinomial! Nice things about the Dirichlet distribution
+Because Multinomial! \pause Nice things about the Dirichlet distribution
 \begin{itemize}
   \item It's \textit{conjugate} to the Multinomial
 \end{itemize}
@@ -280,25 +292,6 @@ Prior distributions are solid lines and the resulting posterior distributions ov
  
 \end{frame}
 
-\begin{frame}{}
-\end{frame}
-
-\begin{frame}{Topic models: $\beta$}
-
-\medskip
-\centerline{\includegraphics[scale=0.4]{pictures/topic-words}}
-From \textcite{Quinn.etal2006}\\
-Note: only the top most probable words are shown and topic labels are manually assigned.
-
-\end{frame}
-
-\begin{frame}{Topic models: $\theta_k$}
-
-\centerline{\includegraphics[scale=0.35]{pictures/defence-topic-quinn}}
-
-From \textcite{Quinn.etal2006}
-
-\end{frame}
 
 \begin{frame}{Topic model training}
 
@@ -320,6 +313,24 @@ A more complete machine learning course will tell you all about; we won't linger
 
 \end{frame}
 
+\begin{frame}{Topic models: $\beta$}
+
+\medskip
+\centerline{\includegraphics[scale=0.4]{pictures/topic-words}}
+From \textcite{Quinn.etal2007}\\
+Note: only the top most probable words are shown and topic labels are manually assigned.
+
+\end{frame}
+
+\begin{frame}{Topic models: $\theta_k$}
+
+\centerline{\includegraphics[scale=0.35]{pictures/defence-topic-quinn}}
+
+From \textcite{Quinn.etal2007}
+
+\end{frame}
+
+
 \begin{frame}{Interpreting topics}
 
 Ideally we'd like to be able to say: ``make this one about defense''
@@ -328,12 +339,10 @@ Unfortunately, that level of high level control is an unsolved problem
 
 We can only \textit{after the fact} assign our own labels the topics, and hope some are topics that we want.
 
-\end{frame}
-\begin{frame}{Topic model topics}
-
-Are they good, these topics? Ironically
+\bigskip
+Are they good, these topics?
 \begin{itemize}
-  \item the better the \textit{statistical} properties of the model the less interpretable it tends to be \parencite{Chang.etal2009}
+  \item often better the \textit{statistical} properties of the model the less interpretable it tends to be \parencite{Chang.etal2009}
   \item Clearly we're missing something with the model structure\ldots
 \end{itemize}
 
@@ -371,27 +380,43 @@ Example: What are the effects of a Japanese house electoral reform on candidate 
 
 \begin{frame}{Structural topic model}
 
-Topic models usually end by presenting us with $\hat{\theta}$ for each document and a dictionary of $\beta$s
-
 If we like some of the topics, we might want to know how they vary with external information, e.g.
 \begin{itemize}
   \item How does rate of topic 3, say `defence', change with the party of the speaker?
-\end{itemize}
-This is a regression model with 
+\end{itemize} \pause
+This is a regression model \parencite{Roberts.etal2014} with
 \begin{itemize}
-  \item Speaker party indicator $X$ (observed)
-  \item proportion of the speech assigned to topic 3 as $Y^*$ (inferred, not observed)
-  \item Covariates $Z$, e.g. committee membership, date, etc. (observed)
+  \item speaker party indicator, convariates etc. as $X$ (observed)
+  \item proportion of the speech assigned to topic 3 as $\theta_3$ (inferred, not observed)
+  \item The words $W$ (observed)
 \end{itemize}
-The \textit{structural topic model} \parencite{Roberts.etal2014} mixes together
-\begin{itemize}
-  \item fitting the topic model
-  \item conditioning its output on the $X$ and $Z$
-\end{itemize}
-Convenient!
 
+\begin{center}
+\begin{tikzpicture}
+\node(alpha) at (4.5,1.25) [var,label=right:$\phi$]{};
+\draw(alpha) -- (theta);
+\node(eta) at (-0.25,1.25) [var,label=left:$\eta$]{}; 
+\draw(eta) -- (beta);
+\node(W) at (1.5,0)  [var,label=below:$W$]{};
+\node(Z) at (3,0)  [lat,label=below:$Z$]{};
+\draw(Z) -- (W);
+\draw[gray](1,-0.75) rectangle (3.75,0.5){};
+\node[gray] at (4,-0.6){\small N};
+\node(theta) at (4.5,0)  [lat,label=below:$\theta$]{};
+\draw(theta) -- (Z);
+\node(beta) at (-0.25, 0) [lat,label=below:$\beta$]{};
+\draw(beta) -- (W);
+\draw(-0.75,-0.75) rectangle (0.5,0.5)[gray];
+\node(labk) at (-0.95,-0.6)  []{{\color{gray}\small K}};
+\draw[gray](0.75,-1) rectangle (6.5,0.75){};
+\node(X) at (6,0) [var,label=below:$X$]{};
+\draw(X) -- (theta);
+%\node[gray] at (4,-0.6){\small N};
+\end{tikzpicture}
+\end{center}
 
 \end{frame}
+
 
 \begin{frame}{Structural topic model}
 
@@ -399,9 +424,22 @@ Having a topic model allows us to get contrast vocabulary \textit{within topic} 
 
 Here's contrasting usage when talking about Guatanamo Bay in a Bush era data set
 
-\centerline{\includegraphics[scale=0.5]{pictures/comparisons-stm}}
+\centerline{\includegraphics[scale=0.45]{pictures/comparisons-stm}}
         
 \end{frame}
+\begin{frame}{Even more topic models}
+
+There's a small industry developing new types of topic model
+\begin{itemize}
+  \item A brief search will acquaint you with more than enough to play with
+\end{itemize}
+Check if they have stable code!
+
+\bigskip
+We'll look closer into topic model evaluation and related matters next week!
+	
+\end{frame}
+
 
 
 

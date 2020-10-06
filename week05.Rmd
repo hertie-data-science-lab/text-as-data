@@ -4,11 +4,16 @@ date: "October 8th, 2020"
 description: "Construction"
 ---
 
-*Learning Objective*: Understand how topic models work and how they relate to content analysis dictionaries
+*Learning Objective*: Understand how topic models work and how they
+ relate to content analysis dictionaries
 
 ## Lecture
 
+[Dropbox link](https://www.dropbox.com/s/dspzkkpyh1rew7l/tada-week05.mov?dl=0)
+
 [Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+
+[slides](lectures/week05.pdf)
 
 ## Assignment
 
