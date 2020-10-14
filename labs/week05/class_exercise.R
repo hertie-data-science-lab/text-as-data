@@ -23,6 +23,7 @@ para_dfm <- dfm(para_corp,
   remove = stopwords(),
   remove_numbers = TRUE)
 
+
 # fit a simple model
 mod <- stm(para_dfm, K = 10, seed = 12345)
 

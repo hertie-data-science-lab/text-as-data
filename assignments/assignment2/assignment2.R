@@ -1,50 +1,43 @@
 library(tidyverse)
-library(igraph)
-
+library(stm)
 library(quanteda)
+
 d <- dictionary(file = "bara-et-al.ykd")
 load("data/corpus_bara_para.rda")
 
-wds <- unique(unlist(d))
-tps <- dfm(corpus_bara_para, dictionary = d)
+load("assignments/assignment2/data/corpus_uk_manif.rda")
+scorp <- corpus_subset(corpus_uk_manif, year > 1979)
+scp <- corpus_reshape(scorp, to = "paragraph")
+scp2 <- corpus_subset(scp, ntoken(scp) > 10)
+dfscp <- dfm(scp2, stem = TRUE, tolower = TRUE, remove = stopwords(),
+            remove_punct = TRUE, remove_numbers = TRUE,
+            split_hyphens = TRUE, remove_separators = TRUE,
+            remove_symbols = TRUE )
+dfstm <- asSTMCorpus(dfscp)
+mod50 <- stm(dfstm$documents, dfstm$vocab,
+             K = 50, prevalence = ~ s(year) + party, data = dfstm$data)
 
-tps_all <- dfm(corpus_bara_para)
-tps_dict <- intersect(featnames(tps_all), wds)
-# coverage
-length(tps_dict) / length(featnames(tps_all))
+mod10c <- stm(dfstm$documents, dfstm$vocab,
+              K = 10, prevalence = ~ s(year) + party, data = dfstm$data)
+
+prep <- estimateEffect(c(6:10) ~ party + s(year), mod10c, metadata = dfstm$data)
+plot(prep, "year", model = mod10c, method = "continuous")
+
+res <- searchK(dfstm$documents, dfstm$vocab, K = c(5, 10, 20, 30))
+
+mod30 <- stm(dfstm$documents, dfstm$vocab, K = 30,
+             prevalence = ~ party + s(year), data = dfstm$data)
+prep <- estimateEffect(c(21) ~ party + s(year), mod10c, metadata = dfstm$data)
+plot(prep, "year", model = mod10c, method = "continuous")
 
 
-tpsdf <- data.frame(docvars(tps), convert(tps, "data.frame"))
-tpsdf <- mutate(tpsdf, all = bara_et_al.advocacy + bara_et_al.legal + bara_et_al.medical +
-         bara_et_al.moral + bara_et_al.procedural + bara_et_al.social)
 
-# transition matrix of speakers
-trans_speak <- table(pre = tpsdf$speaker[-1], post = tpsdf$speaker[-nrow(tpsdf)])
+cbar <- corpus_subset(corpus_bara_para, ntoken(corpus_bara_para) > 20)
+swds <- setdiff(stopwords(), c("he", "him", "his", "she", "her"))
+bdfm <- dfm(cbar, tolower = TRUE, remove = swds,
+    remove_punct = TRUE, remove_numbers = TRUE,
+    split_hyphens = TRUE, remove_separators = TRUE)
+bdfm_stm <- asSTMCorpus(bdfm)
 
-# graph
-grp <- graph_from_adjacency_matrix(trans_speak, mode = "directed")
-
-plot(grp)
-sort(eigen_centrality(grp)$vector, decreasing = TRUE)
-
-# of votes
-trans_vote <- table(pre = tpsdf$vote[-1], post = tpsdf$vote[-nrow(tpsdf)])
-prop.table(trans_vote, 1)
-
-# of topics
-gg <- unlist(tokens_lookup(tokens(corpus_bara_para), dictionary = d))
-trans_topics <- table(pre = gg[-1], post = gg[-length(gg)])
-
-as.data.frame(prop.table(trans_topics, 2)) %>%
-  ggplot(aes(x = pre, y = Freq, color = post, fill = post)) +
-  geom_col(position = "dodge")# +
-  facet_wrap(. ~ post) +
-  coord_flip()
-
-# collapse the runs
-# runs <- rle(tpsdf$vote)
-# table(pre = runs$values[-1], post = runs$values[-length(runs$values)])
-
-# topics over turns
 
 
