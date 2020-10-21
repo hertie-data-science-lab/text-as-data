@@ -1,0 +1,93 @@
+---
+title: "Assignment 2"
+author: "Text as Data"
+date: "10/9/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Note: do this on your *personal laptops*, not in the cloud - we're still investigating 
+how to make that work more smootly with `stm`. You'll need to `install.packages("stm")`
+just the once, first.
+
+## Part 1
+
+In this assignment we'll fit some topic to the UK manifesto data. We won't do much with it
+for now because we'll investigate `stm` further in the next assignment.
+for now, just get comfortable with the functions in the package. And explore a little.
+the package vignette is quite useful (make sure you know how to read this and find 
+the help pages from inside RStudio!)
+
+But let's begin.
+```{r}
+
+```
+As a first step, take a subset of manifestos from after 1979
+```{r}
+
+```
+and switch the unit of analysis from documents to paragraphs
+```{r}
+
+```
+Now remove all the manifesto paragraphs with less than 10 tokens in them
+```{r}
+
+```
+and make a document feature matrix that switches all words to lower case, 
+removes stopwords, punctuation, numbers, separators, and symbols,
+and stems them. You'll want to look at the help pages for `dfm` and for `tokens`
+to see how to do this.
+```{r}
+
+```
+Next we'll bundle up the document feature matrix in a form that the STM 
+package likes. You can do this with `asSTMCorpus`. The result is like 
+a list with elements `documents`, `vocab`, and `data` (the last is what 
+quanteda would call 'docvars' and contains all the non-textual information).
+```{r}
+
+```
+You'll need to give stm all of these elements separately as various points, 
+so make sure you know howw to retrieve these components.
+
+## Part 2
+
+Now to fit a regular topic model (no covariates). More topics means more time waiting and more 
+memory used, so your impatience can guide you in this part. (50 topics takes 
+about 20+ minutes, but generates better models than 10, unsurprisingly). Pick 
+a number and use the `stm` function to fit it. You'll 
+want to give the function the 'documents', and 'vocab' elements mentioned earlier.
+```{r}
+
+```
+Can you discern meaningful topics? Generate a noun phrase that summarises what you 
+think each might be.
+```{r}
+
+```
+Pick one you like and use the `cloud` function to get a quick overview of its
+content (you may need to install a package)
+```{r}
+
+```
+
+## Part 3
+
+*Optional* for the adventurous programers amongst you:
+
+Extract the `theta`s from your fitted model, group them by party,
+average each group (columnwise) to get a per party topic proportion for each topic
+```{r}
+
+```
+How do the parties differ in their use of the topics?
+```{r}
+
+```
+Don't spend a lot of time on this, because we'll work more with the covariates 
+to do a similar thing next week. But at least we will have seen the raw theta
+estimates and done something with them.

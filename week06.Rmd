@@ -4,9 +4,12 @@ date: "October 15th, 2020"
 description: "Extensions and Limitations"
 ---
 
-*Learning Objective*: Appreciate the strengths and limitations of topic modelling; evaluate and criticize fitted models; understand the structural topic model framework
+In which we appreciate the strengths and limitations of topic modelling;
+evaluate and criticize fitted models and understand the structural topic model framework
 
 ## Lecture
+
+[Dropbox link](https://www.dropbox.com/s/schmrlolednlnw0/tada-week06.mov?dl=0)
 
 [Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
 
