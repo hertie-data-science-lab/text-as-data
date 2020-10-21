@@ -1,0 +1,60 @@
+---
+title: "Assignment: Bara et al. 2007"
+author: "Text as Data"
+date: "9/24/2020"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+```
+
+## Bara dictionary
+
+Read in the corpus of texts from the Bara et al. paper (hint: you can find it in the `data` folder of `/cloud/project`). For comparison to the paper, you'll want `corpus_bara_speaker`.
+
+Now read in our translation of their dictionary `bara-et-al.ykd` (originally from different software).
+
+```{r}
+
+```
+
+## Replication Time!
+
+### Table 1
+
+Can you replicate Table 1? How close can you get? How do your answers differ, (if they do)?
+
+```{r}
+
+```
+
+
+### Table 2
+
+Can you replicate Table 2? What is the largest divergence? Qualitatively speaking does your analysis agree?
+
+```{r}
+
+```
+
+This is exactly the kind of summary construction and analysis we need to be comfortable doing. It should take you a few lines of R, so if you are writing reams of code, maybe seek advice on you R! (I'm happy to help if you're stuck)
+
+### `Keyness'
+
+Following the paper, we can use the `vote` document variable to distinguish groups of speakers who subsequently voted for and those who voted against the legislation.
+
+Create a `dfm` for the corpus, then restrict it to a subset of vocabulary of substantive interest, e.g. you might choose explicitly gendered language, e.g. he, him, she, her, or maybe occupational language. This is your choice - be as wide or as narrow as you find interesting. 
+
+Now use `textstat_keyness` to compare vocabulary usage between these two groups. (This function is a variation on the log ratio scores we have been seeing in lecture.) Very briefly, describe your results. 
+
+Note that you will want to assign `groups` to the `dfm` when measuring keyness. (The help pages will help here!)
+
+```{r}
+
+```
+
+## Handing it all in
+
+This time around, just compile this document with code and answers and upload it to moodle. Specifically, I'll be looking for a single knitted pdf, Word, or html file. I think that's probably fancy enough, while we get used to the cloud business. 
