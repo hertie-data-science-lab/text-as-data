@@ -17,7 +17,9 @@ Read in the corpus of texts from the Bara et al. paper (hint: you can find it in
 Now read in our translation of their dictionary `bara-et-al.ykd` (originally from different software).
 
 ```{r}
+library(quanteda)
 
+bara <- dictionary(file = "bara-et-al.ykd")
 ```
 
 ## Replication Time!
@@ -27,7 +29,15 @@ Now read in our translation of their dictionary `bara-et-al.ykd` (originally fro
 Can you replicate Table 1? How close can you get? How do your answers differ, (if they do)?
 
 ```{r}
+load("data/corpus_bara_speaker.rda")
 
+dd <- dfm(corpus_bara_speaker, dictionary = bara)
+ddf <- convert(dd, to = "data.frame")
+
+marg <- 100 * colSums(ddf[,2:7]) / sum(ddf[,2:7])
+names(marg) <- gsub("bara_et_al.", "", names(marg))
+
+marg
 ```
 
 
@@ -36,7 +46,12 @@ Can you replicate Table 1? How close can you get? How do your answers differ, (i
 Can you replicate Table 2? What is the largest divergence? Qualitatively speaking does your analysis agree?
 
 ```{r}
+rowpc <- 100 * ddf[,2:7] / rowSums(ddf[,2:7])
+names(rowpc) <- gsub("bara_et_al.", "", names(rowpc))
+table2 <- data.frame(speaker = ddf$doc_id, 
+                     rowpc)
 
+print(table2, digits = 2)
 ```
 
 This is exactly the kind of summary construction and analysis we need to be comfortable doing. It should take you a few lines of R, so if you are writing reams of code, maybe seek advice on you R! (I'm happy to help if you're stuck)
@@ -52,7 +67,10 @@ Now use `textstat_keyness` to compare vocabulary usage between these two groups.
 Note that you will want to assign `groups` to the `dfm` when measuring keyness. (The help pages will help here!)
 
 ```{r}
+mydict <- bara$bara_et_al[3:4] # I'll just use medical and moral as my dict
 
+ddv <- dfm(corpus_bara_speaker, dictionary = mydict, groups = "vote")
+textstat_keyness(ddv, target = "yes")
 ```
 
 ## Handing it all in
