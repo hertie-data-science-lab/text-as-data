@@ -84,7 +84,7 @@ the lingering effects of racial [discrimination] against minority groups in this
 
 One simple way to characterize all those lines of kwic is to just \text{sum them up} 
 
-A context-feature matrix $C$ where $C_{ij}$ is the number of times word $j$ occurred in word $i$'s kwics
+A context-feature matrix $C$ where $C_\mathit{ij}$ is the number of times word $j$ occurred in word $i$'s kwics
 
 Rows of $C$ are `context vectors' (Naturally, this depends on the window size)
 
@@ -169,12 +169,12 @@ The key distributional semantics concept \textit{intersubstitutability in contex
 
 \begin{frame}{Associations}
 
-In simple context feature matrix, $C_{ij}$ (how many times $j$ occurred in $i$'s contexts) is enough. 
+In simple context feature matrix, $C_\mathit{ij}$ (how many times $j$ occurred in $i$'s contexts) is enough. 
 \begin{itemize}
   \item Maybe (as in LSI) we shrink $C$ by Singular Value Decomposition
 \end{itemize}
 
-In fancier models, $C_{ij}$ is replaced by a `chance corrected' transformation like `pointwise mutual information'
+In fancier models, $C_\mathit{ij}$ is replaced by a `chance corrected' transformation like `pointwise mutual information'
 
 In a (unrealistic) one token window:
 $$
@@ -199,7 +199,7 @@ but in a \textit{proportional} way, so we log it (is this starting to seem famil
 
 Although \textsf{GloVe} would not describe it this way we can think of it as choosing context vectors $\beta_i, \beta_j$ to model the odds ratios underlying $C$
 $$
-\text{log}~C_{ij} = a_i + b_j + \beta_i \beta_j
+\log C_\mathit{ij} = a_i + b_j + \beta_i \beta_j
 $$
 This is the reduced form of a log bilinear model of $C$ (but fit with weighted least squares)
 
