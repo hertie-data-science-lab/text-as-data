@@ -1,20 +1,20 @@
 library(tidyverse)
 theme_set(theme_minimal())
 
-require(quanteda)
-require(quanteda.textmodels)
-require(glmnet)
-require(caret)
-require(plotROC)
+library(quanteda)
+library(quanteda.textmodels)
+library(glmnet)
+library(caret)
+library(plotROC)
 
-## sentiment
+## sentiment - the old way
 
 corp_movies <- data_corpus_moviereviews
 summary(corp_movies, 5)
 
 mmovierev <- dfm(data_corpus_moviereviews)
 
-# data_dictionary_geninqposneg
+# or data_dictionary_geninqposneg
 res <- textstat_polarity(corp_movies,
                          data_dictionary_LSD2015)
 res$sent_prob <- 1/(1 + exp(-res$sentiment))
@@ -30,17 +30,21 @@ head(id_train, 10)
 corp_movies$id_numeric <- 1:ndoc(corp_movies)
 
 # train
-dfmat_training <- corpus_subset(corp_movies,
-                                id_numeric %in% id_train) %>%
-  dfm(remove = stopwords("en"),
-      remove_number = TRUE, stem = TRUE)
-
+train_corp <- corpus_subset(corp_movies,
+                                id_numeric %in% id_train)
+dfmat_train <- dfm(train_corp,
+                   remove = stopwords("en"),
+                   remove_number = TRUE,
+                   stem = TRUE)
 # test
-dfmat_test <- corpus_subset(corp_movies, !id_numeric %in% id_train) %>%
-  dfm(remove = stopwords("en"), remove_number = TRUE, stem = TRUE)
-
+test_corp <- corpus_subset(corp_movies, !id_numeric %in% id_train)
+dfmat_test <- dfm(test_corp,
+                  remove = stopwords("en"),
+                  remove_number = TRUE,
+                  stem = TRUE)
+yval <- as.integer(dfmat_training$sentiment == "pos")
 lasso <- cv.glmnet(x = dfmat_training,
-                   y = as.integer(dfmat_training$sentiment == "pos"),
+                   y = dfmat_training$sentiment,
                    alpha = 1, # 0 (ridge) to 1 (lasso)
                    nfold = 5,
                    family = "binomial")
@@ -53,16 +57,19 @@ table(beta == 0.0)
 dfmat_matched <- dfm_match(dfmat_test,
                            features = featnames(dfmat_training))
 
-pred <- predict(lasso, dfmat_matched, type = "response",
-                s = lasso$lambda.min)
-head(pred)
+predicted_prob <- predict(lasso, dfmat_matched,
+                          type = "response",
+                          s = lasso$lambda.min)
+head(predicted_prob)
 
 # Error analysis: confusion matrix
-actual_class <- as.integer(dfmat_matched$sentiment == "pos")
-lasso_class <- predict(lasso, dfmat_matched, type = "class")
-predicted_class <- as.integer(lasso_class)
-predicted_prob <- predict(lasso, dfmat_matched, type = "response")
-tab_class <- table(actual_class, predicted_class)
+actual_class <- dfmat_matched$sentiment
+head(actual_class)
+class(actual_class)
+lasso_class <- factor(predict(lasso, dfmat_matched, type = "class"))
+#predicted_class <- as.integer(lasso_class)
+#predicted_prob <- predict(lasso, dfmat_matched, type = "response")
+tab_class <- table(actual_class, lasso_class)
 tab_class
 
 # Error analysis: ROC curves
@@ -73,14 +80,31 @@ dict_sent <- res$sentiment[-id_train]
 plot(predicted_prob[,1], dict_prob)
 cor(predicted_prob[,1], dict_sent)
 
-calculate_roc(lasso_prob, actual_class)
-calculate_roc(dict_prob, actual_class)
+# for the purposes of roc, let's transform actual_class
+# into a 0/1 variable for comparison to the predicted probability
+
+levels(actual_class) # 0 -> "neg" and 1 -> "pos" so as.numeric will work
+
+actual_class_binary <- as.numeric(actual_class)-1
+calculate_roc(lasso_prob, actual_class_binary)
+calculate_roc(dict_prob, actual_class_binary)
 
 rs <- data.frame(M = c(dict_prob, lasso_prob),
-                 D = c(actual_class, actual_class),
+                 D = c(actual_class_binary, actual_class_binary),
                  classifier = rep(c("dict", "lasso"), each = 500))
+class(rs$D)
 
-ggplot(rs, aes(m = M, d = D, color = classifier)) +
+p <- ggplot(rs, aes(m = M, d = D, color = classifier)) +
   geom_roc()
+p
+
+# two single number summaries
+calc_auc(p)
+
+
+# More ROC interpretation help here:
+# https://towardsdatascience.com/understanding-auc-roc-curve-68b2303cc9c5
+
+
 
 
