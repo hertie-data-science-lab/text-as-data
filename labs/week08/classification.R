@@ -8,7 +8,7 @@ library(caret)
 library(plotROC)
 
 ## sentiment - the old way
-
+library(quanteda.sentiment)
 corp_movies <- data_corpus_moviereviews
 summary(corp_movies, 5)
 
@@ -42,7 +42,7 @@ dfmat_test <- dfm(test_corp,
                   remove = stopwords("en"),
                   remove_number = TRUE,
                   stem = TRUE)
-yval <- as.integer(dfmat_training$sentiment == "pos")
+#yval <- as.integer(dfmat_training$sentiment == "pos")
 lasso <- cv.glmnet(x = dfmat_training,
                    y = dfmat_training$sentiment,
                    alpha = 1, # 0 (ridge) to 1 (lasso)
