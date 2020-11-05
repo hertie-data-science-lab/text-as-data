@@ -14,5 +14,7 @@ We're on ClickMeeting these days
 
 ## Assignment
 
+[slides](lectures/week08.pdf)
+
 [script](labs/week08/classification.R)
 
