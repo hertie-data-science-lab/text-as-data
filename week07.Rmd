@@ -8,7 +8,7 @@ description: ""
 
 ## Lecture
 
-[Link](lectures/week07.pdf)
+[slides](lectures/week07.pdf)
 
 ## Assignment
 
