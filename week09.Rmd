@@ -4,13 +4,18 @@ date: "November 12th, 2020"
 description: "Measurement"
 ---
 
-*Learning Objective*: Understand the measurement basis of unidimensional scaling models from text, their strengths and limitations 
+*Learning Objective*: Understand the measurement basis of
+ unidimensional scaling models from text, their strengths and
+ limitations
 
 
 ## Lecture
 
+[Slides](lectures/week09.pdf)
+
+[Lab materials](labs/week09.zip)
+
 [Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
 
-## Assignment
 
-[Link](https://rstudio.cloud/)
+

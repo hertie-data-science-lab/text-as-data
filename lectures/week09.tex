@@ -90,7 +90,7 @@ Estimated FOMC member ideal points from meeting transcripts  \parencite{Baerg.Lo
 
 \end{frame}
 
-\begin{frame}{Scaling: Senators (Monroe \& Maeda}
+\begin{frame}{Scaling: Senators (Monroe \& Maeda)}
 
 \centerline{\includegraphics[scale=0.25]{pictures/senator-ip-monroe-maeda} }
 Samizdat from \parencite{Monroe.Maeda2004}
@@ -371,10 +371,10 @@ For the microeconomists, think
 \column{0.45\textwidth}
 
 
-$\longleftarrow$ from \textcite{Clinton.etal2004a}
+$\longleftarrow$ from \textcite{Clinton.etal2004}
 \medskip
 
-Condition on document length to get a IRT spatial `voting' model \parencite{Baker1994,Lang2004}
+Condition on document length to get a spatial `voting' model \parencite[via the `Multinomial-Poisson' transform',][] {Baker1994,Lang2004}
 
 \end{columns}
 	
@@ -437,7 +437,7 @@ Decision time: Should I say word 1 or word 2?
 
 \begin{frame}{Special cases: rile}
 
-According to the folk at the WZB \parencite{Budge.etal1987,Budge1999}, parties signal their ideology by making just such a sequence of choices, over topics
+According to the folk at the WZB \parencite{Budge.etal1987,Volkens.etal2020}, parties signal their ideology by making just such a sequence of choices, over topics
 \begin{itemize}
   \item Manually identify `Right' topics $R$ and `Left' topics $L$, from a 56 topic codebook
   \item For each party manifesto, sum up the Right topic proportions and subtract the sum of the Left topic proportions
@@ -516,17 +516,43 @@ Plan:
 \centerline{\includegraphics[scale=0.4]{pictures/rile-cats}\pause \includegraphics[scale=0.4]{pictures/non-rile-cats}}
 \end{frame}
 
-\begin{frame}{Brits!}
+\begin{frame}{Brits\ldots}
 
 \centerline{\includegraphics[scale=0.4]{pictures/UK_items}\pause \includegraphics[scale=0.4]{pictures/UK_items_only_main_parties}}
 \end{frame}
 
+\begin{frame}{Theoretical questions}
 
-\begin{frame}{Wrapping up}
+\begin{itemize}
+  \item How can we know what $\theta$ represents?
+  \item How can we get policy-specific scores?
+  \item How comparable are these document and word position estimates?
+  \item (When) does it make sense to project different documents into a space
+  \item What would a multi-dimensional version of this model look like
+\end{itemize}
 
-
-	
 \end{frame}
+
+\begin{frame}{Implementations}
+
+\textsc{Association model}
+\begin{itemize}
+  \item What quanteda calls `wordfish'
+  \item limited to scaling in one dimension
+  \item Provides uncertainty estimates for document positions (too small, \cite{Lowe.Benoit2013})
+  \item Fit by alternating maximum likelihood, so rather slow
+\end{itemize}
+
+\textsc{Correspondence Analysis}
+\begin{itemize}
+  \item The least squares version of the association model, so tends to agree with it
+  \item Very fast to fit -- just one SVD
+  \item Multiple dimensions possible at no extra cost
+  \item $\theta$ called `row coordinates' and $\beta$ called `column coordinates'
+  \item Uncertainty estimates harder to get (bootstrap is possible)
+  \item Very useful general purpose contingency table visualization tool\end{itemize}
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
