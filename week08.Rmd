@@ -4,12 +4,17 @@ date: "November 5th, 2020"
 description: ""
 ---
 
-*Learning Objective*: Understand sentiment analysis and its applications, as a dictionary-based method or a classification model
+*Learning Objetive*: Understand sentiment analysis and
+its applications, as a dictionary-based method or a
+classification model
 
 ## Lecture
 
-[Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+We're on ClickMeeting these days
 
 ## Assignment
 
-[Link](https://rstudio.cloud/)
+[slides](lectures/week08.pdf)
+
+[script](labs/week08/classification.R)
+

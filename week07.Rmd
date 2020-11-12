@@ -8,7 +8,7 @@ description: ""
 
 ## Lecture
 
-[Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+[slides](lectures/week07.pdf)
 
 ## Assignment
 
