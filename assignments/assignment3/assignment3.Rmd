@@ -76,47 +76,48 @@ Now we'll re-inflate the counts and throw away all the electoral
 and other info in the data that we won't use
 ```{r}
 cmp20 <- allcmp20 %>%
-  select(edate, countryname, partyname, partyabbrev, total, peruncod,
+  select(edate, countryname, partyname, partyabbrev, 
+         total, voteper = pervote, uncoded = peruncod,
          matches("per\\d\\d\\d$")) %>% # per%d%d%d% are subcategories, so we ignore them
   mutate(edate = as.Date(edate, format = "%d/%m/%Y"),
          eyear = lubridate::year(edate), # make a nice year just in case we want to filter with it
          label = paste(partyabbrev, eyear, sep = ":"), # for graphing
-         across(starts_with("per"), function(x) round(total * (x/100)))) %>% # inflate the counts
-  rename(uncoded = peruncod) # and rename the uncoded sentence counts
+         across(starts_with("per"), function(x) round(total * (x/100)))) 
 ```
 Phew. That was a fairly typical bit of data cleaning code, which 
 takes up a lot of data science-ing time. Study it a little 
 if you think this is in your future. But we'll just use it 
 below.
 
-The column `per101` is now the *count* of sentences coded into category 101. So, as noted above: 14 for the FDP in 2002. 
-Feel free to confirm that.
+## Reconstructing counts 
 
-## The metadata
+The column `per101` is now the *count* of sentences coded into category 101. Let's extract the document feature matrix part so we can 
+give it to scaling models
+```{r}
+counts <- select(cmp20, starts_with("per"))
+counts[1:3, 1:7] # quick peek at the top left corner
+```
+and switch into a old-style R representation that has
+rownames and colnames like you remember before you knew anything 
+about the tidyverse.
+```{r}
+mat <- data.matrix(counts)
+rownames(mat) <- cmp20$label
+colnames(mat) <- itemcodes$name
+```
+## The topic metadata
 
 Now to pull in the labels corresponding to the meaning of each category. This is metadata, since it is a mapping from the obscure
 column header codes to two facts about each code.
 ```{r,message=FALSE}
 itemcodes <- read_csv("data/itemcodes.csv")
 head(itemcodes)
-
-rile_right <- itemcodes$name[itemcodes$rile.valence == 1]
-rile_left <- itemcodes$name[itemcodes$rile.valence == -1]
-rile_none <- itemcodes$name[itemcodes$rile.valence == 0]
-
-head(rile_right)
 ```
 Here we've got a table of basic information about the CMP's coding 
-scheme and also a "rile.valence". In this data there is a core set 
-of categories that the authors believe is the basis of left-right
-ideology measures. The categories in `rile_right` are the 
-categories whose emphasis indicates a more right position
-and `rile_left` a more left position. The `rile_none` categories
-are just the remainder that are coded, but not supposed to 
-be as important (or something. The codebook elaborates).
+scheme and also a "rile.valence" that are supposed to be right (marked here as 1) or left (marked here as -1), or uncategorized (0)
 We'll use them later.
 
-## Analysis: Germany and Britain
+## Analysis: Germany 
 
 This is historical data, but we'll start our analysis somewhat 
 arbitrarily in 1990, just after the fall of the Wall.
@@ -125,267 +126,241 @@ oldest <- as.Date("1990-01-01")
 ```
 and focus on Germany
 ```{r}
-deuk <- filter(cmp20, edate > oldest, 
-               countryname %in% c("Germany", "United Kingdom"))
-
-deuk[1:3, 1:7]
-```
-Because we're not in `quanteda` we'll have to manage the 
-"docvars" and the document feature matrix info separately,
-so let's first pull out the dfm-like part: the counts
-```{r}
-deuk_counts <- select(deuk, starts_with("per"))
-
-deuk_counts[1:3, 1:7] # quick peek at the top left corner
-```
-and switch into a old-style `data.frame` representation that has
- rownames and colnames like you remember before you knew anything 
- about the tidyverse.
-```{r}
-deuk_mat <- data.matrix(deuk_counts)
-rownames(deuk_mat) <- deuk$label
-colnames(deuk_mat) <- itemcodes$name
-
-deuk_mat[1:3,1:2] # top left corner of our dfm equivalent
+de_mat <- mat[cmp20$edate > oldest & cmp20$countryname == "Germany",]
+de_mat[1:3, 1:4]
 ```
 Looks like dfm, right? If we've got this kind of object available then 
 we're ready to scale.
+
+But before we do that, let's grab the Germany part of `cmp20` since it's got all kinds of useful things in it
+```{r}
+de_rest <- filter(select(cmp20, -starts_with("per")), 
+                  edate > oldest, 
+                  cmp20$countryname == "Germany")
+```
 
 ## Model 
 
 Now to scale these counts and see what they tell us about parties.
 We'll use `ca` rather than `wordfish` because we'd like to 
 be able to efficiently scale in multiple dimensions. So let's load 
-the package and run the scaling function, conveniently called 
-`ca` also.
+the package and run the scaling function on `de_mat`. Call that model `mod1`
 ```{r}
 library(ca)
 
-mod1 <- ca(deuk_mat, nd = 1)
+mod1 <- ca(de_mat)
 ```
 `mod1` has a lot of stuff in it. Of primary interest to use
 are the document positions "theta" and the word positions "beta".
 CA calls these row coordinates and column coordinates respectively
 (which makes sense) and these are tucked inside the model
-in matrix form. Let's get them out and take a look.
+in matrix form. 
+
+Extract them and call them `theta` and `beta` respectively
+(Remember that we're interested in *columns* of the row and column coordinate matrics, as you can tell by examining their sizes)
 ```{r}
-betas <- mod1$colcoord[,1]
-thetas <- mod1$rowcoord[,1]
+theta <- mod1$rowcoord[,1] # thetas
+beta <- mod1$colcoord[,1] # betas
+```
+Now take a quick look at the third and fourth elements of theta. Note that the SPD is considered to be a left wing party relative to the FDP.
+
+So it looks like we have one of those arbitrary 
+sign 'problems'. We'll fix it by enforcing that the SPD is to the left of i.e. less than the FDP and flipping the signs of all our parameters 
+to make it so if we need to
+```{r}
+switcheroo <- ifelse(theta[3] < theta[4], 1, -1)
+```
+Now you *multiply* both `theta` and `beta` by `switcheroo` and get something nicely interpretable. Do that to both!
+```{r}
+theta <- switcheroo * theta
+beta <- switcheroo * beta
 ```
 
-Now it's your turn. For each country, 
-plot the party positions over elections. We don't have uncertainty estimates in this version of the model, so don't worry about those. You may need to do a bit of data frame construction before plotting here - 
-you can get election date `edate`, and country names from `deuk`.
-And if you want a list of 'main' UK parties, try
-```{r}
-main_parties <- c("Conservatives", "Labour", "LibDems", "SNP", "UKIP", "PC", "DUP")
-```
+Next up, plot these party positions as they vary over elections. We don't have uncertainty estimates (yet) so don't worry about those. 
 
+You may need to do a bit of data frame construction before plotting;
+you can get election date `edate`, and country names from `de_rest`.
 ```{r}
-dat <- data.frame(position = thetas, 
-                  country = deuk$countryname,
-                  party = deuk$partyabbrev,
-                  election = deuk$edate)
+dat <- data.frame(position = theta, 
+                  country = de$countryname,
+                  party = de$partyabbrev,
+                  election = de$edate)
 
-ggplot(filter(dat, country == "Germany"), 
-       aes(election, position, colour = party)) + 
+ggplot(dat, aes(election, position, colour = party)) + 
   geom_point() + 
   geom_line() +
-  facet_grid(rows = vars(country))
+  facet_grid(rows = vars(country)) + 
+  scale_color_jco()
+```
 
-ggplot(filter(dat, country == "United Kingdom",
-              party %in% main_parties), 
-       aes(election, position, colour = party)) + 
+## Robustness to topic choices
+
+How different does this plot look if you only use the RILE (+1 and -1) topics in the model? (Call this model `mod2` so we don't get confused)
+
+```{r}
+rile_de_mat <- de_mat[, itemcodes$rile.valence != 0]
+mod2 <- ca(rile_de_mat)
+theta <- mod2$rowcoord[,1]
+switcheroo <- ifelse(theta[3] < theta[4], 1, -1)
+dat <- data.frame(position = theta, 
+                  country = de$countryname,
+                  party = de$partyabbrev,
+                  election = de$edate)
+
+ggplot(dat, aes(election, position, colour = party)) + 
   geom_point() + 
-  geom_line()
-```
-
-So far, I hope, so familiar. Now plot the (shared) betas the same style
-```{r}
-dat <- data.frame(position = betas, 
-                  country = names(betas))
-dat <- arrange(dat, country, position) %>%
-  group_by(country) %>%
-  mutate(ord = 1:n())
-
-ggplot(dat, aes(x = position, y = ord, label = party)) + 
-  geom_point() +
-  geom_text_repel() +
-  facet_grid(country ~ .)
-```
-
-Summary:
-```
+  geom_line() +
+  facet_grid(rows = vars(country)) + 
+  scale_color_jco()
 
 ```
-Now do the same for the `betas` on dimension 1:
-```{r}
-
-```
-
-Summary:
+In particular, would our opinions about the AfD and Die Linke change depending on the topics we used, and if so, how?
 ```
 
 ```
 
-Focusing now on the `betas` can you assign a rough interpretation 
-to the second and third dimensions on the basis of how they 
-order?
-```{r}
+## Uncertainty with CA
 
-```
-Interpretation:
-```
+Its time to get some confidence intervals on things. These will be 
+useful if we want to know, e.g. the probability that one party is 
+to the left of another, when their estimated positions are quite close.
 
-```
+For this we'll need joint sampling distribution for theta (and beta).
+From that we can compute - well, anything really. since we shouldn't 
+be particularly omfortable making Normality assumptions and we don't
+want to attempt any tricky mathematics (really, we don't), then 
+we'll use the bootstrap as a way to sample parameter estimates.
 
-## Graphics
+For those who have not met a bootstrap, the idea is that we resample 
+the existing data set to create 'bootstrap' data sets that represent
+counts we could have seen but did not. There are a lot of subtle ways to 
+do this, but we'll take a blunt approach (that tends to agree with human uncertainty levels in some cases that have been examined in detail).
 
-Time for a picture. Let's plot the parties and the policy categories
-together in the first two dimensions. It will be helpful to 
-make a data.frame that will make plotting easy for ggplot.
-```{r}
-# stack the betas and thetas with a label noting 
-# which row is which, and a label for the graphic
-plotdata <- data.frame(parameter = c(rep("beta", nrow(betas)),
-                                     rep("theta", nrow(thetas))),
-                       rbind(betas[,1:2], thetas[,1:2])) %>%
-  rownames_to_column(var = "label")
+First we'll normalize each row of `counts` to sum to 1 and then 
+assert that these are topic generation probabilities. Then we'll 
+take a sample of the same size as the original row total, using these
+probabilities. That will generate a new 'document' of the same length
+as the original, but slightly different counts. Once we've
+done it for each line of `counts` we'll take those counts, fit a model
+to it, and extract its estimated `theta` and `beta` and keep them for later. In the end we'll have B vectors of `theta`s and B vectors of `beta`s, which we can summarise to get a standard error, or use in 
+other comparisons. 
 
-head(plotdata)
-```
-Now we can plot them
-```{r, fig.height = 10, fig.width = 10}
-ggplot(plotdata, aes(Dim1, Dim2, color = parameter, label = label)) +
-  geom_point() +
-  geom_text_repel() +
-  scale_colour_manual(values = list(beta="grey", theta = "black"),
-                      guide = FALSE)
-```
-
-Oof. That's quite busy.
-
-Let's try only plotting the `rile_left` and `rile_right` categories. 
-We'll do this by filtering out all the `rile_none` rows of the data 
-and using the same plot code.
-```{r, fig.height = 10, fig.width = 10}
-filter(plotdata, !(label %in% rile_none)) %>%
-  ggplot(aes(Dim1, Dim2, color = parameter, label = label)) +
-  geom_point() +
-  geom_text_repel() +
-  scale_colour_manual(values = list(beta="grey", theta = "black"),
-                      guide = FALSE)
-```
-
-## Interpretation
-
-Interpretation time. Consider the SPD manifesto in the 2017 election. According 
-to this scaling model, does it emphasize each of the following themes *more* than other parties, *less* than other parties, or about the *same*?
-
-- Political Authority
-- Law and Order
-- Constitutionalism
-- Controlled Economy
-
-Hint: revisit the final parts of the prerecorded video.
-
-Interpretation:
-```
-
-```
-
-## Time Series plots
-
-We've been collapsing the temporal dimension here. Let's add those nicely formatted
-dates we made earlier to the data and see how the parties look over time in terms of
-the first scaled dimension
-```{r}
-ts_plotdata <- data.frame(date = de$edate, 
-                          party = de$partyabbrev,
-                          position = thetas[,1])
-```
-How about you make the positions over time plot and describe qualitatively what you see
-```{r}
-
-```
-
-Interpretation:
-```
-
-```
-
-## Projection
-
-Following the NYT piece, let's (perhaps unwisely) ask the question, where the two main 
-US parties would be if they emphasized what they really do emphasize in their
-platforms but were somehow translated into German and found themselves 
-competing in a Federal Election. 
-
-For this, we'll fit the model to the regular German parties and the project 
-the US parties in based on the German `betas`. We can do this conveniently
-by giving the `ca` function the row numbers of the US parties and asking it
-to treat these as 'supplementary', that is, to define the scaled space without 
-them and then to place them in it.
-
-Most of this code follows the code above, but watch out for the differences
-```{r}
-usde <- filter(cmp20, edate > oldest,
-               countryname %in% c("Germany", "United States"))
-usde_counts <- select(usde, starts_with("per"))
-
-usde_mat <- data.matrix(usde_counts)
-rownames(usde_mat) <- usde$label
-colnames(usde_mat) <- itemcodes$name
-
-# which indices are to be projected?
-extras <- which(usde$countryname == "United States")
-extras
-
-# now fit the model with supplementary rows 
-mod2 <- ca(usde_mat, suprow = extras)
-
-# and extract the positions
-usde_betas <- mod2$colcoord
-usde_thetas <- mod2$rowcoord
-```
-This time you plot it. Note: You *may* find it easier to read if you filter out *all* the betas, not just the `rile_none` ones.
-
-```{r, fig.height = 10, fig.width = 10}
-
-```
-
-Provide a brief qualitative description of what you see.
-
-Interpretation:
-```
-
-```
-
-## A more sensible projection?
-
-Assuming the projection question makes sense (it probably does better for 
-some pairs of countries than others, e.g. ones that share an electoral 
-system or some relevant history), now project a *different*, perhaps more reasonable comparison country into the German space and tell us very briefly what you see and 
-whether you think it makes sense.
+Here's some hopefully straightforward code to get you going
 
 ```{r}
+# grab the estimates from the real data
+origmod <- ca(de_mat)
+theta <- origmod$rowcoord[,1]
+beta <- origmod$colcoord[,1]
+signflip <- ifelse(theta[3] > theta[4], -1, 1)
+theta <- signflip*theta
+beta <- signflip*beta
 
+# how many bootstrap samples to use
+B <- 500
+
+# some constants to save typing
+N <- nrow(de_mat)
+V <- ncol(de_mat)
+
+# how long each document is
+doclens <- rowSums(de_mat)
+
+# take the original counts and divide each element by 
+# it's row total
+probs <- sweep(de_mat, 1, doclens, FUN = '/')
+
+# make a place for each bootstrap data set to land in
+boot_sample <- matrix(0, nrow = nrow(de_mat), 
+                      ncol = ncol(de_mat))
+# this will hold all our beta estimates
+betas <- matrix(0, nrow = V, ncol = B)
+rownames(betas) <- itemcodes$name
+# this will hold all our theta estimates
+thetas <- matrix(0, nrow = N, ncol = B)
+rownames(thetas) <- de$label
+
+# a function to create a new data set, fit a model, flip 
+# signs as necessary, extract theta and beta, and store them
+boot_mat <- function(b) {
+  # report every 100 iterations
+  if (b %% 100 == 0) 
+    cat(".") 
+  # resample a new data set
+  for (i in 1:N)
+    boot_sample[i,] <- rmultinom(1, prob = probs[i,], 
+                                 size = doclens[i])
+  # fit model to this data set
+  res <- ca(boot_sample)
+  # extract the position estimates
+  theta <- res$rowcoord[,1]
+  beta <- res$colcoord[,1]
+  # if SPD > FDP, make a sign-flipping multiplier to identify
+  signflip <- ifelse(theta[3] > theta[4], -1, 1)
+
+  # record these values in the boostrap sample collection 
+  # that lives outside the loop
+  thetas[,b] <<- signflip * theta
+  betas[,b] <<- signflip * beta
+} 
+
+# run this to get B bootstrap estimates in thetas and betas
+for (b in 1:B) boot_mat(b) 
 ```
-Interpretation:
+
+How to use these things? Well, you could use this code to get making 
+95% confidence intervals for theta:
+```{r}
+# summarise the estimates in each row
+quants <- apply(thetas, 1, quantile, 
+                probs = c(0.025, 0.975))
+quants <- t(quants) # flip it over
+names(quants) <- c("lwr", "upr") # and rename
+head(quants)
+```
+OK, now your turn. Remake that first graph but with uncertainty
+estimates. Add them however you think makes sense visually.
+```{r}
+plottable_thetas <- data.frame(country = de$countryname,
+                               party = de$partyabbrev,
+                               date = de$edate,
+                               theta = theta, 
+                               quants)
+names(plottable_thetas) <- c("country", "party", "date", "theta", 
+                             "lwr", "upr")
+
+ggplot(filter(plottable_thetas, country == "Germany"),
+       aes(date, theta, color = party, fill = party, 
+           ymin = lwr, ymax = upr)) + 
+  geom_line() + 
+  geom_ribbon(colour = NA, alpha = 0.4)
+  geom_ribbon
 ```
 
+It seems like we aren't quite sure about the AfD's position in 2013. To get a sense of that uncertainty, make a density plot (or a ggridges plot if you like those more) showing each party's position estimates in 2013; use alpha transparency so we can see the overlaps.
+
+You may find it useful to have things in long format 
+```{r}
+elec2013 <- thetas[de_rest$eyear == 2013, ]
+party2013 <- de_rest$partyabbrev[de_rest$eyear == 2013]
+samps2013 <- data.frame(elec2013, party = party2013)
+longsamps2013 <- pivot_longer(samps2013, -party)
+head(longsamps2013)
 ```
 
-## Finally
-
-What do you think is the difference making a space using both countries 
-and making a space with one and projecting another into it? Under what 
-circumstances would these differ?
-
-Interpretation:
+```{r}
+ggplot(longsamps2013, aes(value, fill = party)) + 
+  geom_density(alpha = 0.5, color = NA)
 ```
 
+## Inference
+
+Being just a little fast a loose, statistically speaking, how might we estimate the probability that the AfD was in fact to the *left* of the CDU in this election?
+```{r}
+mean(elec2013[5,] > elec2013[7,])
 ```
+
+## Centers of gravity
 
 
 
