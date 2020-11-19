@@ -15,10 +15,13 @@
 
 \begin{frame}{Plan}
 \begin{itemize}
-  \item Interpretation
-  \item Multidimensional models
-  \item Comparisons 
-  \item Connections to other methods
+  \item Model fitting
+  \item Interpreting the dimension
+  \item Specifying the dimension
+  \item Making things comparable
+  \item Going multidimensional
+  \item Visualisation
+  \item Searching for a common space
 \end{itemize}
 
 \end{frame}
@@ -323,6 +326,7 @@ How to read a biplot:
 
 
 \end{frame}
+
 \begin{frame}{Why was that a two dimensional plot?}
 
 \bigskip
@@ -335,45 +339,94 @@ How much variance is explained by adding another dimension?
 
 \end{frame}
 
-\begin{frame}{Common space}
+\begin{frame}{What are these dimensions?}
 
-Scaling has notorious comparison problems, mostly due to concerns about 
-differential item functioning (DIF).
+Dimensions are necessarily orthogonal
 \begin{itemize}
-  \item Is there a 'common space' \parencite{Kluver2009}
-  \item Can we construct one? using bridging observations or projection?
+  \item We expect substantive dimensions to be more or less correlated
+  \item Unlike e.g. factor analysis we are conditionally Poisson / Multinomial, so there is no separate correlation parameter
+  \item Lack of rotation keeps us honest\ldots
+\end{itemize}
+
+At most, only `intrinsic dimensionality' is really meaningful
+\begin{itemize}
+  \item Makes sense for stable party systems, with notable exceptions
+  \item May make less sense for individuals \parencite{Broockman2016}
 \end{itemize}
 
 \end{frame}
-\begin{frame}{'Common space'}
+
+\begin{frame}{Common space}
+
+What we want
+\begin{itemize}
+  \item A 'common space' \parencite{Kluver2009}
+\end{itemize}
+How to get one
+\begin{itemize}
+  \item fiat (the traditional answer) and projection
+  \item bridging observations
+\end{itemize}
+
+Differential item functioning (DIF) may stop us
+\begin{itemize}
+  \item across space: does `Anti Imperialism' really mean the same things in the West, the former East, and Central America?
+  \item across time: pre and post 1989 in Europe
+\end{itemize}
+These are just different ways of talking about 
+institutional stability
+
+\end{frame}
+\begin{frame}{Common space: big stretch}
 
 \centerline{\includegraphics[scale=0.45]{pictures/nyt-parties}}
 
+\end{frame}
+\begin{frame}{Common space: smaller stretch?}
+
+\centerline{\includegraphics[scale=.4]{pictures/cmpcats_us_in_de}}
 
 \end{frame}
-\begin{frame}{American parties occupy Germany('s party space)}
-
-\centerline{\includegraphics[scale=1]{pictures/cmpcats_us_in_de}}
-
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{frame}{Scaling several}
-\vspace{-1em}
-\centerline{\includegraphics[scale=0.45]{pictures/grey-just-rile}}
-Post-1989 German party position from CMP-coded platforms
+\begin{frame}{Summing up}
+We can
+\begin{itemize}
+  \item Fit mutiple unidimensional models
+  \item Fit multidimensional models
+  \item Project new vectors of counts into existing spaces ($\beta$s) 
+  \item Visualise pair of dimensions using biplots
+\end{itemize}
+But in the end, we have to make sense of it all ourselves\ldots
 
 \end{frame}
 
-\begin{frame}{In each other's space}
-\medskip
-\centerline{\includegraphics[scale=.35]{pictures/cmpcats_us_in_de}}
-Link: \href{https://www.nytimes.com/interactive/2019/06/26/opinion/sunday/republican-platform-far-right.html}{the pretty version at the New York Times}
 
-\end{frame}
+
+
+
+
+%\begin{frame}{American parties occupy Germany('s party space)}
+%
+%\centerline{\includegraphics[scale=.35]{pictures/cmpcats_us_in_de}}
+%
+%
+%\end{frame}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%\begin{frame}{Scaling several}
+%\vspace{-1em}
+%\centerline{\includegraphics[scale=0.45]{pictures/grey-just-rile}}
+%Post-1989 German party position from CMP-coded platforms
+%
+%\end{frame}
+
+%\begin{frame}{In each other's space}
+%\medskip
+%\centerline{\includegraphics[scale=.35]{pictures/cmpcats_us_in_de}}
+%Link: \href{https://www.nytimes.com/interactive/2019/06/26/opinion/sunday/republican-platform-far-right.html}{Sahil Chinoy's pretty version from the New York Times}
+%
+%\end{frame}
 
 
 %%%
