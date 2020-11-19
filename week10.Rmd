@@ -10,6 +10,6 @@ description: "Extensions and Interpretation"
 
 [Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
 
-## Assignment
+[slides](lectures/week10.pdf)
 
-[Link](https://rstudio.cloud/)
+[lab materials](labs/week10.zip)
