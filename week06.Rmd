@@ -1,0 +1,12 @@
+---
+title: "Topic Models II"
+date: "October 15th, 2020"
+description: "Extensions and Limitations"
+---
+
+In which we appreciate the strengths and limitations of topic modelling;
+evaluate and criticize fitted models and understand the structural topic model framework
+
+## Lecture
+
+[Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)

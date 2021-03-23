@@ -1,0 +1,17 @@
+---
+title: "Scaling I"
+date: "November 12th, 2020"
+description: "Measurement"
+---
+
+*Learning Objective*: Understand the measurement basis of
+ unidimensional scaling models from text, their strengths and
+ limitations
+
+
+## Lecture
+
+[Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+
+
+

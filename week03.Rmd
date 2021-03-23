@@ -1,0 +1,37 @@
+---
+title: "Dictionaries I"
+date: "September 24th, 2020"
+description: "Construction"
+---
+
+One of the ancestors of TADA was called 'content analysis' and had a
+manual and a computer assisted form. Like may evolutionary precursors,
+it's still around, and we will make much use of its main tool, the
+manually constructed content analysis 'dictionary'. We will think
+about such dictionary-based methods as being a confirmatory form of
+the mixed membership models we will study in their exploratory forms
+for the next few weeks. Specifically, if we assume first that a
+document is a mixture of mentions of a predetermined set of topics,
+and second that we as researchers can write down a mapping of words to
+those topics, then we can construct a measurement device which, when
+presented with a document returns an estimate of the relative
+proportions of each topic in the document. This will work well when
+our mapping is good, and not otherwise. This week we consider the
+construction process. Next week we see how we might evaluate whether
+it is any good and consider how to use the results in further
+analysis.
+
+## Lecture
+
+[Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+
+## Readings
+
+- Young and Soroka 2012 'Affective news: the automated coding of sentiment in political texts'
+
+- Bara et al. 2007 'Analysing parliamentary debate with computer
+  assistance' Swiss Political Science Review.
+
+- Laver and Garry 2000 Estimating policy positions from political
+  texts. American Journal of Political Science.
+

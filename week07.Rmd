@@ -1,0 +1,12 @@
+---
+title: "Space and Similarity"
+date: "October 29th, 2020"
+description: ""
+---
+
+*Learning Objective*: Understand how word embeddings, document similarity, and other ‘semantic space’ approaches to text analysis work and their strengths and limitations.
+
+## Lecture
+
+[Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+

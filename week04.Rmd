@@ -1,0 +1,32 @@
+---
+title: "Dictionaries II"
+date: "October 1st, 2020"
+description: "Evaluation and Analysis"
+---
+
+Is this dictionary any good? One way to ask this question is to look
+at its precision and recall: how often to the words it assigns to a
+topic really belong there, and for all the words in a topic, how often
+does the dictionary assign them to it? These can be hard to estimate
+with manual methods like content analysis dictionaries, but we can still
+lay down a general framework that will also apply to the topic models,
+and many other kinds of coding exercises.
+
+Its all very well to discover where a dictionary is weak, but can we do
+any thing about it? Turns out, yes, though there'll still be a manual
+element.
+
+
+## Readings
+
+- Mikhaylov S. et al. (2011) [Coder reliability and misclassification in the human coding of party manifestos](http://pan.oxfordjournals.org/cgi/doi/10.1093/pan/mpr047) Political Analysis 20(1)
+
+- King G. and Lowe, W. (2003) [An Automated Information Extraction Tool for International Conflict Data with Performance as Good as Human Coders: A Rare Events Evaluation Design](https://www.cambridge.org/core/journals/international-organization/article/an-automated-information-extraction-tool-for-international-conflict-data-with-performance-as-good-as-human-coders-a-rare-events-evaluation-design/7BF83BD64D633189EBFD600EB05E7F2E) International Organization 57(3)
+
+- Hopkins D. and King, G. (2010) [A method of automated nonparametric content analysis for social science](https://dx.doi.org/10.1111/j.1540-5907.2009.00428.x) American Journal of Political Science 54(1)
+
+## Lecture
+
+[Link](https://moodle.hertie-school.org/course/index.php?categoryid=266)
+(not yet)
+

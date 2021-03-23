@@ -1,0 +1,129 @@
+{
+  "articles": [
+    {
+      "path": "index.html",
+      "title": "Text as Data",
+      "description": "Quantitative Text Analysis for Political Science and Public Policy\n",
+      "author": [],
+      "contents": "\nInstructor:\nDr. William E. M. Lowe\nOffice:\nRoom 3.14\nOffice Hours\nBy arrangement. Email the instructor directly.\nClass Times\nThursdays 16:00-18:00\nSessions\n\nDate\nTitle\n1\n10.09.2020\nText as Data\n2\n17.09.2020\nText as Data as Measurement\n3\n24.09.2020\nDictionaries (1. construction)\n\n\nAssignment 1 out\n4\n01.10.2020\nDictionaries (2. evaluation and analysis)\n\n\nAssignment 2 out\n5\n08.10.2020\nTopic models (1. construction)\n\n\nAssignment 3 out\n6\n15.10.2020\nTopic models (2. extensions and limitations)\n\n\nAssignment 4 out\n\n\n \n7\n29.10.2020\nSpace and Similarity\n8\n05.11.2020\nSentiment\n9\n12.11.2020\nScaling (1)\n10\n19.11.2020\nScaling (2)\n11\n26.11.2020\nText Classification\n\n\nAssignment 5 out\n12\n03.12.2020\nCausal Inference with Text\n\n14.12.2020\nFinal Exam Week\n\n\n\n",
+      "last_modified": "2021-03-23T09:54:49+01:00"
+    },
+    {
+      "path": "syllabus.html",
+      "title": "Syllabus",
+      "description": "Your single source of course information\n",
+      "author": [],
+      "contents": "\nLogistics\n \n\nInstructor:\nDr. William E. M. Lowe\nAssistant Email:\nadjunctsupport@hertie-school.org\nOffice:\nRoom 3.14\nOffice Hours\nBy arrangement. Email the instructor directly.\nClass Times\nThursdays 16:00-18:00\nFormat\nThe course will consist of short pre-recorded lectures from the instructor and live discussion of these conducted either in person, remotely, or a mix of both. There are regular exercises to be submitted the week after they are set. Students will finish the course with an in depth analysis of an existing substantively-focused instructor-approved paper of their choice.\nGeneral Readings\nReadings will be provided in the form of articles, preprints, and occasionally online resources as the course progresses. There is regrettably not (yet) a single textbook that adequately treats the topics of this course.\nPrerequisites\nStatistically, students should be familiar with fitting and interpreting linear models and with the basics of logistic regression. Previous exposure with any kind of measurement model or (index construction process) will be helpful, e.g. factor analysis, or IRT, but this material will be presented as needed.\nPractically, students should be competent, though need not be expert, at manipulating vectors and data.frames in R. Text data is unavoidably unwieldy and much of any text analysis is spent manipulating data, which the course will provide practice for but not teach from scratch. Experience with R graphics will also be an advantage, though is not required. The Data Science Lab’s help desk can suggest materials to fulfil the data manipulation prerequisites.\nGrading and Assignments\nTBA\nExercises\nData analysis exercises are guided practical exercises based around a data set or text collection, interspersed with conceptual questions about the tools being used, interpretation of results, etc. The exercises are designed to improve practical skills and test knowledge from lectures and reading. Grading is based on success in the practical components and the quality of written answers. Answers to conceptual questions are intended to require at most several paragraphs of text. Note that different exercises have a different mixes of practical and explanatory / analytical requirements.\nFinal Report\nFor the final report, students choose a substantively oriented paper on a policy topic of their choice, subject to instructor approval, and provide both a critique of its methods from a causal perspective, and motivate a set of proposals to remedy any identified defects (if that is possible), e.g. by providing alternative or additional research design or other analytical strategies to address the original research question. Note that there is no requirement that suggestions must use exactly the same data but suggestions for alternative data sources must be reasonable.\nParticipation\nThe participation grade is based on the assumption that students take part, not as passive consumers of knowledge, but as active participants in the exchange, production, and critique of ideas—their own ideas and the ideas of others. Therefore, students should come to class not only having read and viewed the materials assigned for that day but also prepared to discuss the readings of the day and to contribute thoughtfully to the conversation. Participation is graded subtractively; students receive the full grade except to the extent they fail to take adequate part in the class. Participation is marked by its active nature, its consistency, and its quality, but note that it is both unnecessary and also unwise, to monopolize conversation in order to maximize participation grade. Participation that makes it harder for other class members to engage in discussion will lead to a lower grade, regardless of the quality of interventions.\nParticipation is graded subtractively; students receive the full grade except to the extent they fail to take adequate part in the class. Participation is marked by its active nature, its consistency, and its quality, but note that it is both unnecessary and also unwise, to monopolize conversation in order to maximize participation grade. Participation that makes it harder for other class members to engage in discussion will lead to a lower grade, regardless of the quality of interventions.\nLate submission of assignments\nFor each day the assignment is turned in late, the grade will be reduced by 10% (e.g. submission two days after the deadline would result in 20% grade deduction).\nAttendance\nStudents are expected to be present and prepared for every class session. Active participation during lectures and seminar discussions is important. If unavoidable circumstances arise which prevent attendance or preparation, the instructor should be advised by email with as much advance notice as possible. Please note that students cannot miss more than two out of 12 course sessions. For further information please consult the Examination Rules §10.\nAcademic Integrity\nThe Hertie School is committed to the standards of good academic and ethical conduct. Any violation of these standards shall be subject to disciplinary action. Plagiarism, deceitful actions as well as free-riding in group work are not tolerated. See Examination Rules §16.\nCompensation for Disadvantages\nIf a student furnishes evidence that he or she is not able to take an examination as required in whole or in part due to disability or permanent illness, the Examination Committee may upon written request approve learning accommodation(s). In this respect, the submission of adequate certificates may be required. See Examination Rules §14.\nExtenuating circumstances\nAn extension can be granted due to extenuating circumstances (i.e., for reasons like illness, personal loss or hardship, or caring duties). In such cases, please contact the course instructors and the Examination Office in advance of the deadline.\nSession Overview\nSession\nDate\nTitle\n1\n10.09.2020\nText as Data\n2\n17.09.2020\nText as Data as Measurement\n3\n24.09.2020\nDictionaries (1. construction)\n\n\nAssignment 1 out\n4\n01.10.2020\nDictionaries (2. evaluation and analysis)\n\n\nAssignment 2 out\n5\n08.10.2020\nTopic Models (1. construction)\n\n\nAssignment 3 out\n6\n15.10.2020\nTopic Models (2. extensions and limitations)\n\n\nAssignment 4 out\n\n\n \n7\n29.10.2020\nSpace and Similarity\n8\n05.11.2020\nSentiment\n9\n12.11.2020\nScaling (1)\n10\n19.11.2020\nScaling (2)\n11\n26.11.2020\nClassification\n\n\nAssignment 5 out\n12\n03.12.2020\nCausal Inference with Text\n\n14.12.2020\nFinal Exam Week\n\n\n\n",
+      "last_modified": "2021-03-23T09:54:50+01:00"
+    },
+    {
+      "path": "week01.html",
+      "title": "Text as Data",
+      "description": "",
+      "author": [],
+      "date": "September 10th, 2020",
+      "contents": "\nThis week we contrast ‘text as data’ with other possible approaches to studying text and language. We will see that the distinctive feature of a text as a data approach (henceforward TADA) is its emphasis on language as behaviour in an institutional setting. TADA de-emphasises - indeed mostly just ignores - dictionary definitions and grammatical niceties to focus on what language is being used to do, e.g. emphasize an issue or express a position. In marked contrast to other approaches e.g. from psychology or discourse analysis, there is more concern for measurement and much less concern for ‘theory’ with the idea that TADA is for connecting textual data to domain theories (usually institutional or behavioural). A running theme in this course is that TADA is about extending traditional social science measurement strategies to deal with language.\nLecture\nLink to streamable version on the moodle\nReadings\nGrimmer and Stewart 2013 ‘Text as Data: The Promise and Pitfalls of Automatic Content Analysis Methods for Political Documents’ Political Analysis.\n\n\n\n",
+      "last_modified": "2021-03-23T09:54:50+01:00"
+    },
+    {
+      "path": "week02.html",
+      "title": "Text as Data as Measurement",
+      "description": "",
+      "author": [],
+      "date": "September 17th, 2020",
+      "contents": "\nThis week we consider text in the same way we might think of economic and social data. Naturally this will pose some challenges, notably high dimensionality and very skewed frequency distributions at almost all levels of unit, from paragraphs to documents. These pose some unique measurement challenges, but have fairly intuitive, if sometimes technically troublesome solutions.\nIt is traditional in all kinds of statistical studies to distinguish data ‘pre-processing’ from data ‘modeling’ or ‘analysis’. TADA also does so, but we will emphasize that all pre-processing is a form of measurement modeling that brings efficiencies but also potential hazards. Text pre-processing will be a major practical component to most TADA analyses, so we should know what we are doing.\nLecture\nLink\nReadings\nRegular expressions for fun and profit (test them here)\nSpirling and Denny on preprocessing\n\n\n\n",
+      "last_modified": "2021-03-23T09:54:50+01:00"
+    },
+    {
+      "path": "week03.html",
+      "title": "Dictionaries I",
+      "description": "Construction",
+      "author": [],
+      "date": "September 24th, 2020",
+      "contents": "\nOne of the ancestors of TADA was called ‘content analysis’ and had a manual and a computer assisted form. Like may evolutionary precursors, it’s still around, and we will make much use of its main tool, the manually constructed content analysis ‘dictionary’. We will think about such dictionary-based methods as being a confirmatory form of the mixed membership models we will study in their exploratory forms for the next few weeks. Specifically, if we assume first that a document is a mixture of mentions of a predetermined set of topics, and second that we as researchers can write down a mapping of words to those topics, then we can construct a measurement device which, when presented with a document returns an estimate of the relative proportions of each topic in the document. This will work well when our mapping is good, and not otherwise. This week we consider the construction process. Next week we see how we might evaluate whether it is any good and consider how to use the results in further analysis.\nLecture\nLink\nReadings\nYoung and Soroka 2012 ‘Affective news: the automated coding of sentiment in political texts’\nBara et al. 2007 ‘Analysing parliamentary debate with computer assistance’ Swiss Political Science Review.\nLaver and Garry 2000 Estimating policy positions from political texts. American Journal of Political Science.\n\n\n\n",
+      "last_modified": "2021-03-23T09:54:51+01:00"
+    },
+    {
+      "path": "week04.html",
+      "title": "Dictionaries II",
+      "description": "Evaluation and Analysis",
+      "author": [],
+      "date": "October 1st, 2020",
+      "contents": "\nIs this dictionary any good? One way to ask this question is to look at its precision and recall: how often to the words it assigns to a topic really belong there, and for all the words in a topic, how often does the dictionary assign them to it? These can be hard to estimate with manual methods like content analysis dictionaries, but we can still lay down a general framework that will also apply to the topic models, and many other kinds of coding exercises.\nIts all very well to discover where a dictionary is weak, but can we do any thing about it? Turns out, yes, though there’ll still be a manual element.\nReadings\nMikhaylov S. et al. (2011) Coder reliability and misclassification in the human coding of party manifestos Political Analysis 20(1)\nKing G. and Lowe, W. (2003) An Automated Information Extraction Tool for International Conflict Data with Performance as Good as Human Coders: A Rare Events Evaluation Design International Organization 57(3)\nHopkins D. and King, G. (2010) A method of automated nonparametric content analysis for social science American Journal of Political Science 54(1)\nLecture\nLink (not yet)\n\n\n\n",
+      "last_modified": "2021-03-23T09:54:51+01:00"
+    },
+    {
+      "path": "week05.html",
+      "title": "Topic Models I",
+      "description": "Construction",
+      "author": [],
+      "date": "October 8th, 2020",
+      "contents": "\nLearning Objective: Understand how topic models work and how they relate to content analysis dictionaries\nLecture\nLink\n\n\n\n",
+      "last_modified": "2021-03-23T09:54:51+01:00"
+    },
+    {
+      "path": "week06.html",
+      "title": "Topic Models II",
+      "description": "Extensions and Limitations",
+      "author": [],
+      "date": "October 15th, 2020",
+      "contents": "\nIn which we appreciate the strengths and limitations of topic modelling; evaluate and criticize fitted models and understand the structural topic model framework\nLecture\nLink\n\n\n\n",
+      "last_modified": "2021-03-23T09:54:52+01:00"
+    },
+    {
+      "path": "week07.html",
+      "title": "Space and Similarity",
+      "description": "",
+      "author": [],
+      "date": "October 29th, 2020",
+      "contents": "\nLearning Objective: Understand how word embeddings, document similarity, and other ‘semantic space’ approaches to text analysis work and their strengths and limitations.\nLecture\nLink\n\n\n\n",
+      "last_modified": "2021-03-23T09:54:52+01:00"
+    },
+    {
+      "path": "week08.html",
+      "title": "Sentiment",
+      "description": "",
+      "author": [],
+      "date": "November 5th, 2020",
+      "contents": "\nLearning Objective: Understand sentiment analysis and its applications, as a dictionary-based method or a classification model\nLecture\nLink\nWe’re on ClickMeeting these days\n\n\n\n",
+      "last_modified": "2021-03-23T09:54:52+01:00"
+    },
+    {
+      "path": "week09.html",
+      "title": "Scaling I",
+      "description": "Measurement",
+      "author": [],
+      "date": "November 12th, 2020",
+      "contents": "\nLearning Objective: Understand the measurement basis of unidimensional scaling models from text, their strengths and limitations\nLecture\nLink\n\n\n\n",
+      "last_modified": "2021-03-23T09:54:53+01:00"
+    },
+    {
+      "path": "week10.html",
+      "title": "Scaling II",
+      "description": "Extensions and Interpretation",
+      "author": [],
+      "date": "November 19th, 2020",
+      "contents": "\nLearning Objective: Understand extensions of association and correspondence analysis to multiple dimensions and their graphical interpretation\nLecture\nLink\n\n\n\n",
+      "last_modified": "2021-03-23T09:54:53+01:00"
+    },
+    {
+      "path": "week11.html",
+      "title": "Classification",
+      "description": "",
+      "author": [],
+      "date": "November 26th, 2020",
+      "contents": "\nLearning Objective: Understand the document classification task, evaluate classification models, evaluate, and deal with errors\nLecture\nLink\n\n\n\n",
+      "last_modified": "2021-03-23T09:54:53+01:00"
+    },
+    {
+      "path": "week12.html",
+      "title": "Causal Inference with Text",
+      "description": "",
+      "author": [],
+      "date": "December 3rd, 2020",
+      "contents": "\nLearning Objective: Understand how to treat quantities from a text analysis as treatments, as confounders, and as outcomes.\nLecture\nLink\n\n\n\n",
+      "last_modified": "2021-03-23T09:54:54+01:00"
+    }
+  ],
+  "collections": []
+}
