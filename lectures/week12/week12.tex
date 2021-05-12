@@ -1,0 +1,152 @@
+\documentclass{hertieteaching}
+\usepackage{cancel}
+\usepackage{hyperref}
+
+\title{Text in research context}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Where to put it?}
+
+Simple lexical analysis
+\begin{itemize}
+  \item $C_\mathit{ij}$ as an \textit{indicator} or an effect of something non-textual
+\end{itemize}
+\pause
+
+We've focused more on text analysis as a \textit{measurement problem}:
+\begin{itemize}
+  \item (Documents + assumptions) $\Longrightarrow$ $\hat{\theta}$
+\end{itemize}
+
+\begin{columns}[T,onlytextwidth]
+\column{0.5\textwidth}
+
+Where does this fit in the larger research picture?
+\begin{itemize}
+  \item $\theta$ as an independent variable
+  \item $\theta$ as an dependent variable
+  \item $\theta$ as a confounder
+\end{itemize}
+
+\pause
+Remember, there's still measurement error, even if there isn't bias
+
+\column{0.05\textwidth}
+\column{0.45\textwidth}
+
+\begin{tikzpicture}
+\node(W1) at  (0.5, 0)[var];
+\node(W2) at  (1, 0)[var];
+\node(W3) at  (1.5, 0)[var];
+\node(theta) at  (1, 1)[lat,label=left:$\theta_X$]{};
+\draw  (theta) -- (W1);
+\draw  (theta) -- (W2);
+\draw  (theta) -- (W3);
+\pause
+\node(Y1) at  (3, 0)[var];
+\node(Y2) at  (3.5, 0)[var];
+\node(Y3) at  (4, 0)[var];
+\node(thetaY) at  (3.5, 1)[lat,label=right:$\theta_Y$]{};
+\draw  (thetaY) -- (Y1);
+\draw  (thetaY) -- (Y2);
+\draw  (thetaY) -- (Y3);
+\draw  (theta) -- (thetaY);
+\pause
+\node(Z) at  (2.25, 2)[var,label=left:$Z$];
+\draw  (Z) -- (thetaY);
+\draw  (Z) -- (theta);
+\end{tikzpicture}
+
+\end{columns}
+
+
+\end{frame}
+
+
+\begin{frame}{Strategy}
+
+We can also think of a text analysis
+\begin{itemize}
+  \item[1.] $\theta$ as a large scale terrain map / sample stratifier
+  \item[2.] $\theta$ as a generalization check
+\end{itemize}
+  
+Examples of 1 and 2:
+\begin{itemize}
+  \item Classify / scale / topic model 10,000 news stories and use $\hat{\theta}$ to see which ones to read more closely 
+  \item Work up a small dictionary on 30 documents and
+  apply to the 10,000 news stories 
+\end{itemize}
+  
+Examples of iteration:
+\begin{itemize}
+  \item Work up a small dictionary on 30 stories
+  \item Apply to the 10,000 stories to see macro trends
+  \item Sample interesting, extreme, of randomly based on $\theta$ to check the model
+\end{itemize}
+
+
+  
+\end{frame}
+
+\begin{frame}{Tactics}
+
+Sampling?
+\begin{itemize}
+  \item Who  or what is the population?
+  \item Down-sampled data means you iterate models faster (and risk missing something)
+  \item Thoughtful stratification will help you draw more robust conclusions
+\end{itemize}
+
+Model checking?
+\begin{itemize}
+  \item How you would \textit{check} the model, e.g. for stability
+  of the $\theta \longrightarrow W$ mapping or the $\beta$s
+\end{itemize}
+
+Tools
+\begin{itemize}
+  \item Much text analysis is inherently mechanical / automated: 
+  be very instrumental about packages and tools
+  \item Don't be afraid to ask for help: e.g. me, the Data Science Lab's research consulting service
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Hints and Tips}
+
+Always try the Kartoffelpuffer (ideally with apple sauce)
+\begin{itemize}
+  \item Very unhealthy, but quite yummy
+\end{itemize}
+
+\bigskip
+\pause
+For those of you currently outside Germany
+
+
+Never eat Kartoffelpuffer (particularly with apple sauce)
+\begin{itemize}
+  \item Terrible. Especially with Glühwein. 
+  \item You're totally not missing anything.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{~~}
+
+\bigskip
+\centerline{\includegraphics[scale=0.4]{pictures/thatsallfolks}}
+
+\end{frame}
+
+
+%\begin{frame}[allowframebreaks]
+%\frametitle{References}
+%\printbibliography	
+%\end{frame}
+
+\end{document}

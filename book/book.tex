@@ -1,0 +1,33 @@
+\documentclass[nofonts,nobib,a4paper,justified]{tufte-book}
+
+\usepackage[lf]{MinionPro}
+\usepackage[varl]{inconsolata}
+
+\usepackage{csquotes}
+\usepackage[british]{babel}
+\usepackage[doi=false,url=false,hyperref=true,backend=biber,style=apa]{biblatex}
+\usepackage{biblatexlinks} 
+\addbibresource{/Users/wlowe/Bibliography/zotero.bib}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+\title{Text as Data}
+\author{Will Lowe}
+
+\begin{document}
+
+\frontmatter
+% generate the title page
+\maketitle
+% show the table of contents
+\tableofcontents
+% start to number the pages
+  
+\chapter{Session 1}  
+  
+What we did then. \cite{Lowe.Benoit2013}. 
+  
+  
+\printbibliography
+  
+\end{document}
